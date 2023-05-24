@@ -90,6 +90,8 @@ public class StarCollector : MonoBehaviour
         puse.isQuestActive = true;
         Time.timeScale = 0;
 
+        buttons.Clear();
+
         GetQus();
         CreateButtons();
 
@@ -99,7 +101,7 @@ public class StarCollector : MonoBehaviour
     //  ~ onGui
     void CreateButtons()
     {
-        btns.Clear();
+        ClearListFromScene(btns);
 
         float tempHeight = 0.0f;
 
@@ -108,12 +110,21 @@ public class StarCollector : MonoBehaviour
             var a = Instantiate(oldBtn, answersPanel.transform);
             tempHeight += a.GetComponent<RectTransform>().rect.height;
             a.transform.position = new Vector3(oldBtn.transform.position.x, oldBtn.transform.position.y + tempHeight, oldBtn.transform.position.z);
-            btns.Add(a);
+            //btns.Add(a);
             a.GetComponentInChildren<TextMeshProUGUI>().text = currQ.Answers[i].Text;
         }
 
 
     }
+
+    void ClearListFromScene(List<GameObject> list)
+    {
+        foreach (GameObject item in list)
+        {
+            Destroy(item);
+        }
+    }
+
     void OldCreateButton()
     {
         GameObject x = new("testBtn", typeof(UnityEngine.UI.Image), typeof(UnityEngine.UI.Button), typeof(UnityEngine.UI.LayoutElement));

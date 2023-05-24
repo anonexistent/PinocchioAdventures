@@ -14,8 +14,8 @@ public class PlayerHP : MonoBehaviour
     Transform spawn;
     GameController gameController;
 
-    [SerializeField]
-    TextMeshProUGUI hPtext;
+    //[SerializeField]
+    //TextMeshProUGUI hPtext;
     [SerializeField]
     GameObject gameOverCanvas;
     [SerializeField]
@@ -32,7 +32,7 @@ public class PlayerHP : MonoBehaviour
     private void FixedUpdate()
     {
         if (transform.position.y < -30 && !food.isGround) xxx(); 
-        hPtext.text = HP.ToString();
+        //hPtext.text = HP.ToString();
         Debug.Log(HP);
 
     }
