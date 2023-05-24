@@ -39,6 +39,7 @@ public class StarCollector : MonoBehaviour
 
     void Update()
     {
+        Debug.LogWarning($"{Environment.CurrentDirectory}");
         starsText.text = starCount.ToString();
     }
 
@@ -156,7 +157,10 @@ public class StarCollector : MonoBehaviour
                 //  clone (copy, duplicate) CreateButtons()
                 for (int i = 0; i < currQ.Answers.Count ; i++)
                 {
-                    var curAnsBtn = GUI.Button(new Rect(tempW2, tempH2 + 25 * i, 100f, 50f), currQ.Answers[i].Text);
+                    ////  he is run if change display resolution
+                    //var curAnsBtn = GUI.Button(new Rect(tempW2, tempH2 + 25 * i, 100f, 50f), currQ.Answers[i].Text);
+                    //           ~ 0.03f per 1 char
+                    var curAnsBtn = GUI.Button(new Rect(Screen.width/2,Screen.height*0.67f + 50 * i, Screen.height * (0.02f * (float)currQ.Answers[i].Text.Length),Screen.height*0.05f), currQ.Answers[i].Text);
                     if (curAnsBtn)
                     {
                         Debug.Log("QuestionPanel");
