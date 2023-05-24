@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class StarCollector : MonoBehaviour
 {
@@ -20,6 +20,7 @@ public class StarCollector : MonoBehaviour
     [SerializeField]
     GameObject oldBtn;
     List<GameObject> btns = new();
+    List<bool> buttons = new();
     Question currQ;
 
     [SerializeField]
@@ -31,10 +32,9 @@ public class StarCollector : MonoBehaviour
     private void Start()
     {
         hPpanels = GameObject.Find("PanelplayerHP");
-        btns.Add(oldBtn);
         GetQuss();
         //questionPanel = GameObject.FindWithTag("QuestionPanel");
-        //questionPanel.SetActive(false);
+        questionPanel.SetActive(false);
     }
 
     void Update()
@@ -99,20 +99,24 @@ public class StarCollector : MonoBehaviour
     //  ~ onGui
     void CreateButtons()
     {
+        btns.Clear();
+
         float tempHeight = 0.0f;
 
         for (int i = 0; i < currQ.Answers.Count; i++)
         {
-            var a = Instantiate(btns[i], answersPanel.transform);
+            var a = Instantiate(oldBtn, answersPanel.transform);
             tempHeight += a.GetComponent<RectTransform>().rect.height;
-            a.transform.position = new Vector3(btns[i].transform.position.x, btns[i].transform.position.y + tempHeight, btns[i].transform.position.z);
+            a.transform.position = new Vector3(oldBtn.transform.position.x, oldBtn.transform.position.y + tempHeight, oldBtn.transform.position.z);
             btns.Add(a);
             a.GetComponentInChildren<TextMeshProUGUI>().text = currQ.Answers[i].Text;
         }
+
+
     }
     void OldCreateButton()
     {
-        GameObject x = new("testBtn", typeof(Image), typeof(Button), typeof(LayoutElement));
+        GameObject x = new("testBtn", typeof(UnityEngine.UI.Image), typeof(UnityEngine.UI.Button), typeof(UnityEngine.UI.LayoutElement));
         x.transform.SetParent(answersPanel.transform);
         x.GetComponent<RectTransform>().localScale = new Vector3(1, 2);
 
@@ -124,42 +128,52 @@ public class StarCollector : MonoBehaviour
 
     private void OnGUI()
     {
-        Cursor.visible = true;
+        UnityEngine.Cursor.visible = true;
 
         if (puse.isQuestActive)
         {
-            //  clone (copy, duplicate) CreateButtons()
-
-            var x = new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 150f, 150f, 45f);
-            var a = GUI.Button(x, "correct answer TEST");
-            var b = GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 100f, 150f, 45f), "false 222222");
-
-            List<bool> buttons = new();
-
-            var temp = answersPanel.GetComponent<RectTransform>().rect;
-            float tempW2 = temp.width / 2;
-            float tempH2 = temp.height / 2;
-
-            for (int i = 0; i < currQ.Answers.Count-1; i++)
+            try
             {
-                buttons.Add(GUI.Button(new Rect(tempW2, tempH2, 150f, 100f), currQ.Answers[i].Text));
+                //var x = new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 150f, 150f, 45f);
+                //var a = GUI.Button(x, "correct answer TEST");
+                //var b = GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 100f, 150f, 45f), "false 222222");
+
+                var temp = answersPanel.GetComponent<RectTransform>().rect;
+                float tempW2 = temp.width / 2;
+                float tempH2 = temp.height / 2;
+
+                //  clone (copy, duplicate) CreateButtons()
+                for (int i = 0; i < currQ.Answers.Count ; i++)
+                {
+                    var curAnsBtn = GUI.Button(new Rect(tempW2, tempH2 + 25 * i, 100f, 50f), currQ.Answers[i].Text);
+                    if (curAnsBtn)
+                    {
+                        Debug.Log("QuestionPanel");
+                        Time.timeScale = 1;
+                        UnityEngine.Cursor.visible = false;
+                        questionPanel.SetActive(!questionPanel.active);
+                        puse.isQuestActive = false;
+                        //throw new NullReferenceException();
+                    }
+                    buttons.Add(curAnsBtn);
+                }
+
+                //List<bool> listAb = new() { a, b };
+
+                //for(int i = 0; i < 4; i++)
+                //{
+                //    listAb.Add(GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 75f - (50f)*i, 150f, 45f), $"{i}"));
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
             }
 
-            //List<bool> listAb = new() { a, b };
-
-            //for(int i = 0; i < 4; i++)
-            //{
-            //    listAb.Add(GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 75f - (50f)*i, 150f, 45f), $"{i}"));
-            //}
-
-            if (a)
-            {
-                Debug.Log("QuestionPanel");
-                Time.timeScale = 1;
-                Cursor.visible = false;
-                questionPanel.SetActive(!questionPanel.active);
-                puse.isQuestActive = false;
-            }
         }
     }
     //  current
