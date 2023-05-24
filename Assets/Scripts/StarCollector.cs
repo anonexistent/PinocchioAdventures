@@ -27,7 +27,7 @@ public class StarCollector : MonoBehaviour
     TextMeshProUGUI starsText;
     GameObject hPpanels;
     public GameObject questionPanel;
-    //public GUIStyle questionMenuStyle;
+    public GUIStyle questionMenuStyle;
 
     private void Start()
     {
@@ -45,19 +45,10 @@ public class StarCollector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Star")
-        {
-            
-        }
-        if(collision.tag == "carrot" & PlayerHP.HP<3)
-        {
-
-
-        }
         switch (collision.tag)
         {
             case "Star":
-                starCount++;
+                starCount++; 
                 Destroy(collision.gameObject);
                 break;
 
@@ -69,12 +60,12 @@ public class StarCollector : MonoBehaviour
                     hPpanels.transform.GetChild(PlayerHP.HP).gameObject.SetActive(true);
                     Destroy(collision.gameObject);
                 }
-
                 break;
 
             case "StarQ":
-                StartMegaQuest();
-                break;
+                StartMegaQuest();               
+                Destroy(collision.gameObject);
+                break;                
 
             default:
                 break;
@@ -142,6 +133,11 @@ public class StarCollector : MonoBehaviour
     {
         UnityEngine.Cursor.visible = true;
 
+        //if(GUI.Button(new(100,100,100,100),"testSTYLE",questionMenuStyle))
+        //{
+        //    Debug.Log("style style");
+        //}
+
         if (puse.isQuestActive)
         {
             try
@@ -151,8 +147,11 @@ public class StarCollector : MonoBehaviour
                 //var b = GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 100f, 150f, 45f), "false 222222");
 
                 var temp = answersPanel.GetComponent<RectTransform>().rect;
-                float tempW2 = temp.width / 2;
-                float tempH2 = temp.height / 2;
+
+                float tempX = Screen.width / 2;
+                float tempY = Screen.height * 0.67f;
+                float tempW = Screen.height * 0.02f;
+                float tempH = Screen.height * 0.05f;
 
                 //  clone (copy, duplicate) CreateButtons()
                 for (int i = 0; i < currQ.Answers.Count ; i++)
@@ -160,9 +159,10 @@ public class StarCollector : MonoBehaviour
                     ////  he is run if change display resolution
                     //var curAnsBtn = GUI.Button(new Rect(tempW2, tempH2 + 25 * i, 100f, 50f), currQ.Answers[i].Text);
                     //           ~ 0.03f per 1 char
-                    var curAnsBtn = GUI.Button(new Rect(Screen.width/2,Screen.height*0.67f + 50 * i, Screen.height * (0.02f * (float)currQ.Answers[i].Text.Length),Screen.height*0.05f), currQ.Answers[i].Text);
+                    var curAnsBtn = GUI.Button(new Rect(tempX, tempY + Screen.height * 0.05f * i, tempW * ((float)currQ.Answers[i].Text.Length<10?11:(float)currQ.Answers[i].Text.Length>30? (float)currQ.Answers[i].Text.Length * 0.5f : 20), tempH), currQ.Answers[i].Text);
                     if (curAnsBtn)
                     {
+                        if(currQ.Answers[i].IsCorrect) starCount++;
                         Debug.Log("QuestionPanel");
                         Time.timeScale = 1;
                         UnityEngine.Cursor.visible = false;
