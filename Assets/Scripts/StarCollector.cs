@@ -161,7 +161,6 @@ public class StarCollector : MonoBehaviour
                 puse.isQuestActive = false;
             }
         }
-
     }
     //  current
     void GetQuss()
