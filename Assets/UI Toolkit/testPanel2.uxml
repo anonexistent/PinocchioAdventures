@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/testPanel2.uss?fileID=7433441132597879392&amp;guid=7567bdabfffa0f049904c441bfd6e2fe&amp;type=3#testPanel2" />
+    <ui:VisualElement name="panel2" class="panel2">
+        <ui:Label text="" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; white-space: normal;" />
+    </ui:VisualElement>
+    <ui:RadioButtonGroup value="-1" class="QsTheme" style="flex-direction: column; align-items: center; justify-content: space-around;">
+        <ui:RadioButton label="a1————————" style="margin-left: -30px; font-size: 30px;" />
+        <ui:RadioButton label="a2————————" style="margin-left: -15px;font-size: 30px;" />
+        <ui:RadioButton label="a3————————" style="align-items: center;font-size: 30px; margin-left: 0;" />
+        <ui:RadioButton label="a4————————" style="margin-left: 15px;font-size: 30px;" />
+        <ui:RadioButton label="a5————————" style="margin-left: 30px;font-size: 30px;" />
+		<ui:Button text="sdfsdf" style="font-size: 28px;"/>
+    </ui:RadioButtonGroup>
+</ui:UXML>
