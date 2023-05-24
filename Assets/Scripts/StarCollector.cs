@@ -19,7 +19,7 @@ public class StarCollector : MonoBehaviour
     GameObject answersPanel;
     [SerializeField]
     GameObject oldBtn;
-    List<GameObject> btns = new();
+    //List<GameObject> btns = new();
     List<bool> buttons = new();
     Question currQ;
 
@@ -101,17 +101,17 @@ public class StarCollector : MonoBehaviour
     //  ~ onGui
     void CreateButtons()
     {
-        ClearListFromScene(btns);
+        //ClearListFromScene(btns);
 
         float tempHeight = 0.0f;
 
         for (int i = 0; i < currQ.Answers.Count; i++)
         {
-            var a = Instantiate(oldBtn, answersPanel.transform);
-            tempHeight += a.GetComponent<RectTransform>().rect.height;
-            a.transform.position = new Vector3(oldBtn.transform.position.x, oldBtn.transform.position.y + tempHeight, oldBtn.transform.position.z);
-            //btns.Add(a);
-            a.GetComponentInChildren<TextMeshProUGUI>().text = currQ.Answers[i].Text;
+            //var a = Instantiate(oldBtn, answersPanel.transform);
+            //tempHeight += a.GetComponent<RectTransform>().rect.height;
+            //a.transform.position = new Vector3(oldBtn.transform.position.x, oldBtn.transform.position.y + tempHeight, oldBtn.transform.position.z);
+            ////btns.Add(a);
+            //a.GetComponentInChildren<TextMeshProUGUI>().text = currQ.Answers[i].Text;
         }
 
 
