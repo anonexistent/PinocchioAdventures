@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class StarCollector : MonoBehaviour
 {
@@ -18,8 +18,8 @@ public class StarCollector : MonoBehaviour
     [SerializeField]
     GameObject answersPanel;
     [SerializeField]
-    GameObject oldBtn;
-    //List<GameObject> btns = new();
+    GameObject prefBtn;
+    List<GameObject> btns = new();
     List<bool> buttons = new();
     Question currQ;
 
@@ -73,6 +73,7 @@ public class StarCollector : MonoBehaviour
     }
     #region ThenTheLivingWillEnvyTheDead
 
+    //  event
     private void StartMegaQuest()
     {
         // child list 0 - preview 1 - questtxt 2 - answers
@@ -82,9 +83,14 @@ public class StarCollector : MonoBehaviour
         puse.isQuestActive = true;
         Time.timeScale = 0;
 
+        UnityEngine.Cursor.visible = true;
+
         buttons.Clear();
 
-        GetQus();
+        currQ = GetQus();
+        questText.text = currQ.Text;
+
+        //  game object buttons
         CreateButtons();
 
         //OnGUI();
@@ -93,22 +99,23 @@ public class StarCollector : MonoBehaviour
     //  ~ onGui
     void CreateButtons()
     {
-        //ClearListFromScene(btns);
+        ClearListFromScene(btns);
 
         float tempHeight = 0.0f;
 
         for (int i = 0; i < currQ.Answers.Count; i++)
         {
-            //var a = Instantiate(oldBtn, answersPanel.transform);
-            //tempHeight += a.GetComponent<RectTransform>().rect.height;
-            //a.transform.position = new Vector3(oldBtn.transform.position.x, oldBtn.transform.position.y + tempHeight, oldBtn.transform.position.z);
-            ////btns.Add(a);
-            //a.GetComponentInChildren<TextMeshProUGUI>().text = currQ.Answers[i].Text;
+            var a = Instantiate(prefBtn, answersPanel.transform);
+            tempHeight += a.GetComponent<RectTransform>().rect.height;
+            a.GetComponent<Button>().onClick.AddListener(() => EndQuestionActivity());
+            a.GetComponentInChildren<TextMeshProUGUI>().text = currQ.Answers[i].Text;
+            a.transform.position = new Vector3(prefBtn.transform.position.x, prefBtn.transform.position.y + tempHeight, prefBtn.transform.position.z);
+            btns.Add(a);
         }
-
 
     }
 
+    //  for game obj btns
     void ClearListFromScene(List<GameObject> list)
     {
         foreach (GameObject item in list)
@@ -116,6 +123,8 @@ public class StarCollector : MonoBehaviour
             Destroy(item);
         }
     }
+
+    #region RemnantsOfPast
 
     void OldCreateButton()
     {
@@ -131,15 +140,15 @@ public class StarCollector : MonoBehaviour
 
     private void OnGUI()
     {
-        UnityEngine.Cursor.visible = true;
-
         //if(GUI.Button(new(100,100,100,100),"testSTYLE",questionMenuStyle))
         //{
         //    Debug.Log("style style");
         //}
 
-        if (puse.isQuestActive)
+        if (false & puse.isQuestActive)
         {
+            UnityEngine.Cursor.visible = true;
+
             try
             {
                 //var x = new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 150f, 150f, 45f);
@@ -162,13 +171,7 @@ public class StarCollector : MonoBehaviour
                     var curAnsBtn = GUI.Button(new Rect(tempX, tempY + Screen.height * 0.05f * i, tempW * ((float)currQ.Answers[i].Text.Length<10?11:(float)currQ.Answers[i].Text.Length>30? (float)currQ.Answers[i].Text.Length * 0.5f : 20), tempH), currQ.Answers[i].Text);
                     if (curAnsBtn)
                     {
-                        if(currQ.Answers[i].IsCorrect) starCount++;
-                        Debug.Log("QuestionPanel");
-                        Time.timeScale = 1;
-                        UnityEngine.Cursor.visible = false;
-                        questionPanel.SetActive(!questionPanel.active);
-                        puse.isQuestActive = false;
-                        //throw new NullReferenceException();
+                        EndQuestionActivity(currQ.Answers[i].IsCorrect);
                     }
                     buttons.Add(curAnsBtn);
                 }
@@ -191,13 +194,35 @@ public class StarCollector : MonoBehaviour
 
         }
     }
-    //  current
+    public void EndQuestionActivity(bool isCorrectAnswer)
+    {
+        if(isCorrectAnswer) starCount++;
+        EndQuestionActivity();
+    }
+
+
+    #endregion
+
+    public void EndQuestionActivity()
+    {
+
+        Debug.Log("QuestionPanel");
+        Time.timeScale = 1;
+        UnityEngine.Cursor.visible = false;
+        questionPanel.SetActive(!questionPanel.active);
+        puse.isQuestActive = false;
+        UnityEngine.Cursor.visible = false;
+        //throw new NullReferenceException();
+    }
+
+
+    //  all qss
     void GetQuss()
     {
         //  Assembly.GetExecutingAssembly() - dll, .procPath - exe
         //int lastSlash = Environment.CurrentDirectory.LastIndexOf(@"\") + 1;
-        //string path2 = Environment.CurrentDirectory.Substring(0, lastSlash) + "test1.json";
-        string path2 = Environment.CurrentDirectory + @"\test1.json";
+        //string path2 = Environment.CurrentDirectory.Substring(0, lastSlash) + "Questions.json";
+        string path2 = Environment.CurrentDirectory + @"\Questions.json";
         questions = JsonConvert.DeserializeObject<List<Question>>(File.ReadAllText(path2)) ?? new List<Question>();
 
         ////MessageBox.Show(string.Join('—', list.Select(x=>x.Answers.Select(x=>x.Text))));
@@ -205,14 +230,17 @@ public class StarCollector : MonoBehaviour
         //var convertedJson = JsonConvert.SerializeObject(list);
         //File.WriteAllText(path2, convertedJson);
     }
-    //  all qss
-    void GetQus()
+    //  current
+    Question GetQus()
     {
+        Question cQ = new();
         if (questions.Count > 0)
         {
-            currQ = questions[UnityEngine.Random.Range(0, questions.Count - 1)];
-            questText.text = currQ.Text;
+            cQ = questions[UnityEngine.Random.Range(0, questions.Count - 1)];
+            //questText.text = currQ.Text;
         }
+
+        return cQ;
     }
 
     #endregion

@@ -105,6 +105,6 @@ public class PlayerHP : MonoBehaviour
         StarCollector.starCount = 0; PlayerHP.HP = 3;
         Debug.Log("hp--; tryAgainOnClick");
         
-        Application.LoadLevel(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
