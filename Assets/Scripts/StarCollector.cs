@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class StarCollector : MonoBehaviour
@@ -39,7 +40,6 @@ public class StarCollector : MonoBehaviour
 
     void Update()
     {
-        Debug.LogWarning($"{Environment.CurrentDirectory}");
         starsText.text = starCount.ToString();
     }
 
@@ -55,7 +55,7 @@ public class StarCollector : MonoBehaviour
             case "carrot":
                 if(PlayerHP.HP<3)
                 {
-                    Debug.Log("fsdjtewrgfo");
+                    Debug.Log("taked carrot");
                     PlayerHP.HP++;
                     hPpanels.transform.GetChild(PlayerHP.HP).gameObject.SetActive(true);
                     Destroy(collision.gameObject);
@@ -107,8 +107,15 @@ public class StarCollector : MonoBehaviour
         {
             var a = Instantiate(prefBtn, answersPanel.transform);
             tempHeight += a.GetComponent<RectTransform>().rect.height;
-            a.GetComponent<Button>().onClick.AddListener(() => EndQuestionActivity());
+            //  circa event button1_Click(sender, e)
+            a.GetComponent<Button>().onClick.AddListener(() => 
+            {
+                EndQuestionActivity();
+                Debug.Log("answer clicked");
+                //CheckAnswer();
+            });
             a.GetComponentInChildren<TextMeshProUGUI>().text = currQ.Answers[i].Text;
+            a.GetComponent<Answer>().IsCorrect = currQ.Answers[i].IsCorrect;
             a.transform.position = new Vector3(prefBtn.transform.position.x, prefBtn.transform.position.y + tempHeight, prefBtn.transform.position.z);
             btns.Add(a);
         }
@@ -200,21 +207,29 @@ public class StarCollector : MonoBehaviour
         EndQuestionActivity();
     }
 
-
     #endregion
 
     public void EndQuestionActivity()
     {
+        //foreach (var btn in btns)
+        //{
+        //    var temp = btn.GetComponent<QuestionButton>();
+        //    if (temp.IsPressed) Debug.Log(temp.answerText);
+        //}
 
-        Debug.Log("QuestionPanel");
         Time.timeScale = 1;
         UnityEngine.Cursor.visible = false;
         questionPanel.SetActive(!questionPanel.active);
         puse.isQuestActive = false;
         UnityEngine.Cursor.visible = false;
         //throw new NullReferenceException();
+
     }
 
+    void CheckAnswer(PointerEventData btnInfo)
+    {
+        Debug.Log(btnInfo.button);
+    }
 
     //  all qss
     void GetQuss()

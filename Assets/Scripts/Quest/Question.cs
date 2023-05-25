@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace JsonQuestion2
 {
-    internal class Question
+    internal class Question : MonoBehaviour
     {
         public int Id { get; set; }
         public string Text { get; set; }
