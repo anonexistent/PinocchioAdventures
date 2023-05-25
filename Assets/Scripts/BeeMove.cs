@@ -10,10 +10,12 @@ public class BeeMove : MonoBehaviour
     Vector3 nextPoint;
     public Transform startPoint;
     public float speed = 1f;
+    Animator animator;
 
 
     private void Start()
     {
+        
         nextPoint = startPoint.position;
     }
     private void Update()

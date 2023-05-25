@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -63,7 +64,8 @@ public class StarCollector : MonoBehaviour
                 break;
 
             case "StarQ":
-                StartMegaQuest();               
+                StartMegaQuest();
+                collision.gameObject.GetComponent<Animator>().SetTrigger("Taking");
                 Destroy(collision.gameObject);
                 break;                
 
@@ -75,7 +77,8 @@ public class StarCollector : MonoBehaviour
 
     //  event
     private void StartMegaQuest()
-    {
+    {        
+        ClearListFromScene(btns);
         // child list 0 - preview 1 - questtxt 2 - answers
 
         //GameObject panel = GameObject.FindWithTag("QuestionPanel");
@@ -99,7 +102,7 @@ public class StarCollector : MonoBehaviour
     //  ~ onGui
     void CreateButtons()
     {
-        ClearListFromScene(btns);
+
 
         float tempHeight = 0.0f;
 
@@ -129,6 +132,7 @@ public class StarCollector : MonoBehaviour
         {
             Destroy(item);
         }
+        list.Clear();
     }
 
     #region RemnantsOfPast
@@ -213,8 +217,9 @@ public class StarCollector : MonoBehaviour
     {
         //foreach (var btn in btns)
         //{
-        //    var temp = btn.GetComponent<QuestionButton>();
-        //    if (temp.IsPressed) Debug.Log(temp.answerText);
+        ////    var isTemp = btn.GetComponent<QuestionButton>().IsPressed;
+        //    if(btn.GetComponent<QuestionButton>().answerText == currQ.Answers.Where(x=>x.IsCorrect).Select(x=>x.Text).FirstOrDefault()) starCount++;
+        ////    if (isTemp) Debug.Log(txtTemp);
         //}
 
         Time.timeScale = 1;
@@ -223,7 +228,6 @@ public class StarCollector : MonoBehaviour
         puse.isQuestActive = false;
         UnityEngine.Cursor.visible = false;
         //throw new NullReferenceException();
-
     }
 
     void CheckAnswer(PointerEventData btnInfo)

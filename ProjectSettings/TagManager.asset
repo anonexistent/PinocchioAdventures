@@ -11,6 +11,7 @@ TagManager:
   - ForeignCamera
   - StarQ
   - QuestionPanel
+  - AnswerButton
   layers:
   - Default
   - TransparentFX
