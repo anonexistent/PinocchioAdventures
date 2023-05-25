@@ -30,10 +30,12 @@ public class StarCollector : MonoBehaviour
     GameObject hPpanels;
     public GameObject questionPanel;
     public GUIStyle questionMenuStyle;
+    Animator animator;
 
     private void Start()
     {
         hPpanels = GameObject.Find("PanelplayerHP");
+        animator = questionPanel.GetComponent<Animator>();
         GetQuss();
         //questionPanel = GameObject.FindWithTag("QuestionPanel");
         questionPanel.SetActive(false);
@@ -42,6 +44,8 @@ public class StarCollector : MonoBehaviour
     void Update()
     {
         starsText.text = starCount.ToString();
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("QuestionPanelStart")) Debug.Log("anim anim anim anim");
+        //if (animator.runtimeAnimatorController.animationClips[0].)
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -83,20 +87,24 @@ public class StarCollector : MonoBehaviour
 
         //GameObject panel = GameObject.FindWithTag("QuestionPanel");
         questionPanel.SetActive(true);
-        puse.isQuestActive = true;
-        Time.timeScale = 0;
+        if (!animator.IsInTransition(0))
+        {
+            puse.isQuestActive = true;
+            Time.timeScale = 0;
 
-        UnityEngine.Cursor.visible = true;
+            UnityEngine.Cursor.visible = true;
 
-        buttons.Clear();
+            buttons.Clear();
 
-        currQ = GetQus();
-        questText.text = currQ.Text;
+            currQ = GetQus();
+            questText.text = currQ.Text;
 
-        //  game object buttons
-        CreateButtons();
+            //  game object buttons
+            CreateButtons();
 
-        //OnGUI();
+            //OnGUI();
+        }
+
     }
 
     //  ~ onGui
