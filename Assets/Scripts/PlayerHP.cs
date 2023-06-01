@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -31,7 +31,7 @@ public class PlayerHP : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (transform.position.y < -30 && !food.isGround) xxx(); 
+        if (transform.position.y < -30 && !food.isGround) GameOver(); 
         //hPtext.text = HP.ToString();
         Debug.Log(HP);
 
@@ -77,6 +77,7 @@ public class PlayerHP : MonoBehaviour
     {
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
+        GameObject.Find("score").GetComponent<TextMeshProUGUI>().text += StarCollector.starCount.ToString() + "☼";
     }
 
     public void NewGame()

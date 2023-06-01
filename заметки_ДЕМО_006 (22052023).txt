@@ -1,6 +1,0 @@
-генератор джос вопросов (JsonWork) — 
-!!! работа с собственно библиотекой (https://www.youtube.com/watch?v=CPkO1Gek8XQ)!!!;
-questions (stars, panel, buttons);
-работа с юай; пауза при вопросе;
-
-

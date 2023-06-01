@@ -12,6 +12,7 @@ TagManager:
   - StarQ
   - QuestionPanel
   - AnswerButton
+  - Cherry
   layers:
   - Default
   - TransparentFX

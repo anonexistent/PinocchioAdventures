@@ -1,4 +1,4 @@
-using JsonQuestion2;
+﻿using JsonQuestion2;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class StarCollector : MonoBehaviour
@@ -31,6 +33,8 @@ public class StarCollector : MonoBehaviour
     public GameObject questionPanel;
     public GUIStyle questionMenuStyle;
     Animator animator;
+    [Range(0.0f, 2.0f)]
+    public float a = 1;
 
     private void Start()
     {
@@ -38,11 +42,15 @@ public class StarCollector : MonoBehaviour
         animator = questionPanel.GetComponent<Animator>();
         GetQuss();
         //questionPanel = GameObject.FindWithTag("QuestionPanel");
-        questionPanel.SetActive(false);
+        questionPanel.SetActive(false); 
+        questionPanel.LeanScale(Vector3.zero, 0.5f);
+
+        Time.timeScale = a;
     }
 
     void Update()
     {
+
         starsText.text = starCount.ToString();
         //if (animator.GetCurrentAnimatorStateInfo(0).IsName("QuestionPanelStart")) Debug.Log("anim anim anim anim");
         //if (animator.runtimeAnimatorController.animationClips[0].)
@@ -68,16 +76,30 @@ public class StarCollector : MonoBehaviour
                 break;
 
             case "StarQ":
+                StartCoroutine(PreStart(collision));
+                Debug.Log("mega quest begins...");
                 StartMegaQuest();
                 collision.gameObject.GetComponent<Animator>().SetTrigger("Taking");
                 Destroy(collision.gameObject);
-                break;                
+                break;
+
+            case "finish":
+                StartCoroutine(PreStart(collision));
+                Debug.Log("hourse");
+                break;
 
             default:
                 break;
         }
     }
     #region ThenTheLivingWillEnvyTheDead
+
+    IEnumerator PreStart(Collider2D col)
+    {
+        yield return col.transform.LeanScale(Vector2.one*8,2f);
+        yield return new WaitForSeconds(2.1f);
+        yield return col.transform.LeanScale(Vector2.zero, 2f).setEasePunch();
+    }
 
     //  event
     private void StartMegaQuest()
@@ -87,10 +109,15 @@ public class StarCollector : MonoBehaviour
 
         //GameObject panel = GameObject.FindWithTag("QuestionPanel");
         questionPanel.SetActive(true);
-        if (!animator.IsInTransition(0))
-        {
-            puse.isQuestActive = true;
-            Time.timeScale = 0;
+
+        StartCoroutine(Open());
+
+        //questionPanel.LeanScale(Vector2.one, 0.3f);
+        //if (!animator.IsInTransition(0))
+        //{
+
+        //}            
+        puse.isQuestActive = true;            
 
             UnityEngine.Cursor.visible = true;
 
@@ -98,13 +125,21 @@ public class StarCollector : MonoBehaviour
 
             currQ = GetQus();
             questText.text = currQ.Text;
-
-            //  game object buttons
-            CreateButtons();
+        
+        //  game object buttons
+        CreateButtons();
 
             //OnGUI();
-        }
 
+    }
+
+    //  two pieces
+    IEnumerator Open()
+    {
+        yield return questionPanel.LeanScale(Vector2.one, 0.3f);
+        yield return new WaitForSeconds(0.32f);
+        Time.timeScale = 0;
+        
     }
 
     //  ~ onGui
@@ -221,21 +256,66 @@ public class StarCollector : MonoBehaviour
 
     #endregion
 
+    public void JsonWebRequest(string path)
+    {
+        StartCoroutine(JsonWorkInNewFonrmat(path));
+    }
+
+    IEnumerator JsonWorkInNewFonrmat(string path)
+    {
+        //using (UnityWebRequest wr = new UnityWebRequest(@"127.0.01/games"))
+        //{
+        //    yield return wr.SendWebRequest();
+
+        //    if (wr.result != UnityWebRequest.Result.Success)
+        //    {
+        //        Debug.Log(wr.error);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Form upload complete!");
+        //    }
+        //}
+
+        UnityWebRequest wr = UnityWebRequest.Get(path);
+        yield return wr.SendWebRequest();
+
+        if (wr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(wr.error);
+        }
+        else
+        {
+            //      ↓↓ jsonString ↓↓
+            Debug.Log("json file has been goted");
+            questions = JsonConvert.DeserializeObject<List<Question>>(wr.downloadHandler.text) ?? new List<Question>();
+        }
+    }
+
     public void EndQuestionActivity()
     {
-        //foreach (var btn in btns)
-        //{
-        ////    var isTemp = btn.GetComponent<QuestionButton>().IsPressed;
-        //    if(btn.GetComponent<QuestionButton>().answerText == currQ.Answers.Where(x=>x.IsCorrect).Select(x=>x.Text).FirstOrDefault()) starCount++;
-        ////    if (isTemp) Debug.Log(txtTemp);
-        //}
+        foreach (var btn in btns)
+        {
+        //    var isTemp = btn.GetComponent<QuestionButton>().IsPressed;
+            if(btn.GetComponent<QuestionButton>().answerText == currQ.Answers.Where(x=>x.IsCorrect).Select(x=>x.Text).FirstOrDefault()) starCount++;
+        //    if (isTemp) Debug.Log(txtTemp);
+        }
 
         Time.timeScale = 1;
         UnityEngine.Cursor.visible = false;
-        questionPanel.SetActive(!questionPanel.active);
-        puse.isQuestActive = false;
+        StartCoroutine(Close());
+        //questionPanel.SetActive(!questionPanel.active);        
         UnityEngine.Cursor.visible = false;
+        puse.isQuestActive = false;
         //throw new NullReferenceException();
+    }
+
+    IEnumerator Close()
+    {
+        questionPanel.LeanScale(Vector2.zero, 0.5f).setEaseInBack();
+        yield return new WaitForSeconds(0.51f); 
+        //questionPanel.SetActive(!questionPanel.active);
+
     }
 
     void CheckAnswer(PointerEventData btnInfo)
@@ -249,10 +329,13 @@ public class StarCollector : MonoBehaviour
         //  Assembly.GetExecutingAssembly() - dll, .procPath - exe
         //int lastSlash = Environment.CurrentDirectory.LastIndexOf(@"\") + 1;
         //string path2 = Environment.CurrentDirectory.Substring(0, lastSlash) + "Questions.json";
-        string path2 = Environment.CurrentDirectory + @"\Questions.json";
-        questions = JsonConvert.DeserializeObject<List<Question>>(File.ReadAllText(path2)) ?? new List<Question>();
 
-        ////MessageBox.Show(string.Join('�', list.Select(x=>x.Answers.Select(x=>x.Text))));
+        //string path2 = Path.Combine(Environment.CurrentDirectory, "Questions.json");
+        JsonWebRequest(@"http://localhost:81/games/Questions.json");
+        //Debug.Log(path2);
+        //questions = JsonConvert.DeserializeObject<List<Question>>(path2) ?? new List<Question>();
+
+        ////MessageBox.Show(string.Join('—', list.Select(x=>x.Answers.Select(x=>x.Text))));
         //list.Add(quest);
         //var convertedJson = JsonConvert.SerializeObject(list);
         //File.WriteAllText(path2, convertedJson);

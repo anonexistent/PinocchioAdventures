@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody2D rb;
     Animator animator;
+
+    public GameObject rifle;
 
     void Start()
     {
@@ -44,6 +47,10 @@ public class PlayerMove : MonoBehaviour
         {
             Application.LoadLevel(0);
         }
+        else if(Input.GetKeyDown(KeyCode.F))
+        {
+            PlayerWinBestEnemies();
+        }
         
         // rotation leftr-right
         if (rightOrientation && xInput <0) Flip();
@@ -57,6 +64,14 @@ public class PlayerMove : MonoBehaviour
         if (isGround) animator.SetBool("Grounded", true); //2
         else animator.SetBool("Grounded", false);//3
 
+    }
+
+    private void PlayerWinBestEnemies()
+    {
+        var a = Instantiate(rifle);
+        a.transform.position = transform.position;
+        a.GetComponent<Rigidbody2D>().AddForce(new Vector2(rightOrientation?100f:-100f,10f));
+        SpawnObjs.curObjs.Add(a);
     }
 
     void Flip()
