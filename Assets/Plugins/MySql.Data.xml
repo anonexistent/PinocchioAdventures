@@ -3269,12 +3269,29 @@
             <returns>A <see cref="T:MySql.Data.MySqlClient.MySqlTransaction"/> representing the new transaction.</returns>
             <exception cref="T:System.InvalidOperationException">Parallel transactions are not supported.</exception>
         </member>
+        <member name="M:MySql.Data.MySqlClient.MySqlConnection.BeginTransactionAsync(System.Data.IsolationLevel)">
+            <summary>
+            Asynchronous version of <see cref="M:MySql.Data.MySqlClient.MySqlConnection.BeginDbTransaction(System.Data.IsolationLevel)"/>.
+            </summary>
+            <param name="isolationLevel">Specifies the <see cref="T:System.Data.IsolationLevel"/> for the transaction.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/> representing the new transaction.</returns>
+            <exception cref="T:System.InvalidOperationException">Parallel transactions are not supported.</exception>
+        </member>
         <member name="M:MySql.Data.MySqlClient.MySqlConnection.BeginTransactionAsync(System.Data.IsolationLevel,System.Threading.CancellationToken)">
             <summary>
             Asynchronous version of <see cref="M:MySql.Data.MySqlClient.MySqlConnection.BeginDbTransaction(System.Data.IsolationLevel)"/>.
             </summary>
             <param name="isolationLevel">Specifies the <see cref="T:System.Data.IsolationLevel"/> for the transaction.</param>
             <param name="cancellationToken">The cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/> representing the new transaction.</returns>
+            <exception cref="T:System.InvalidOperationException">Parallel transactions are not supported.</exception>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.MySqlConnection.BeginDbTransactionAsync(System.Data.IsolationLevel,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronous version of <see cref="M:MySql.Data.MySqlClient.MySqlConnection.BeginDbTransaction(System.Data.IsolationLevel)"/>.
+            </summary>
+            <param name="isolationLevel">Specifies the <see cref="T:System.Data.IsolationLevel"/> for the transaction.</param>
+            <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
             <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/> representing the new transaction.</returns>
             <exception cref="T:System.InvalidOperationException">Parallel transactions are not supported.</exception>
         </member>
@@ -3959,6 +3976,12 @@
             <summary>
             Closes the <see cref="T:MySql.Data.MySqlClient.MySqlDataReader"/> object.
             </summary>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.MySqlDataReader.CloseAsync">
+            <summary>
+            Asynchronously closes the <see cref="T:MySql.Data.MySqlClient.MySqlDataReader"/> object.
+            </summary>
+            <returns>A task representing the asynchronous operation.</returns>
         </member>
         <member name="M:MySql.Data.MySqlClient.MySqlDataReader.GetBoolean(System.String)">
             <summary>
