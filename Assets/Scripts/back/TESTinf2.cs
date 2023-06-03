@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
 using UnityEngine;
 
     /// <summary>
@@ -13,12 +11,12 @@ public class TESTinf2 : MonoBehaviour
 
     int tiktok;
 
-    GameObject camera;
+    GameObject camera1;
     public float paralax;
 
     void Start()
     {
-        camera = GameObject.FindWithTag("ForeignCamera");
+        camera1 = GameObject.FindWithTag("ForeignCamera");
         startPos = transform.position.x;
         lenght = GetComponent<SpriteRenderer>().bounds.size.x;
 
@@ -27,9 +25,9 @@ public class TESTinf2 : MonoBehaviour
 
     private void Foo()
     {
-        temp = camera.transform.position.x * (1 - paralax);
-        distance = camera.transform.position.x * paralax;
-        transform.position = new Vector3(startPos + distance + (lenght / 2), camera.transform.position.y, transform.position.z);
+        temp = camera1.transform.position.x * (1 - paralax);
+        distance = camera1.transform.position.x * paralax;
+        transform.position = new Vector3(startPos + distance + (lenght / 2), camera1.transform.position.y, transform.position.z);
         
         if (temp > startPos + lenght)
         {
