@@ -6,7 +6,9 @@ public class SpawnObjs : MonoBehaviour
     [Tooltip("for example tempForChunks")]
     public GameObject plane;
     public List<GameObject> objs = new();
-    List<GameObject> curObjs = new();
+    public static List<GameObject> curObjs = new();
+    [Range(0f, 1f)]
+    public float enemyChance;
 
     // Start is called before the first frame update
     void Start()
@@ -30,12 +32,29 @@ public class SpawnObjs : MonoBehaviour
 
         // last current chunk
         var a = plane.transform.GetChild(plane.transform.childCount - 1).gameObject;
-        var curObj = Instantiate(objs[Random.RandomRange(0, objs.Count)]);
-        var newObjPos = RandomPointBetween2Points(ch.startChunk.transform.position, ch.endChunk.transform.position);
-        curObj.transform.position = newObjPos + new Vector3(0,Random.value,0);
-        curObjs.Add(curObj);
+        var curObjParent = objs[Random.RandomRange(0, objs.Count)];
+
+        var rndChance = Random.Range(0.00001f, 0.99999f);
+        //Debug.Log(rndChance.ToString());
+        if(rndChance <= enemyChance && curObjParent.tag == "enemy")
+        {
+            BirthObject(ch);
+        }
+        else if(curObjParent.tag != "enemy")
+        {
+            BirthObject(ch);
+        }
 
     }
+
+    void BirthObject(Chunk ch)
+    {
+        var curObj = Instantiate(objs[Random.RandomRange(0, objs.Count)]);
+        var newObjPos = RandomPointBetween2Points(ch.startChunk.transform.position, ch.endChunk.transform.position);
+        curObj.transform.position = newObjPos + new Vector3(0, Random.value, 0);
+        curObjs.Add(curObj);
+    }
+
     private static Vector3 RandomPointBetween2Points(Vector3 start, Vector3 end)
     {
         return (start + Random.Range(0f, 1f) * (end - start));

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class puse : MonoBehaviour
 {
@@ -11,7 +12,11 @@ public class puse : MonoBehaviour
 
     void Update()
     {
-        if(!isQuestActive)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isQuestActive = false;
+        }
+        if (!isQuestActive)
         {
             Time.timeScale = timer; 
         
@@ -41,17 +46,18 @@ public class puse : MonoBehaviour
         {
             Cursor.visible = true;
 
-            if (GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 150f, 150f, 45f), "continue")) 
-            { 
-                ispuse = false; 
-                timer = 0; 
-                Cursor.visible = false; 
-            } 
+            //if (GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 150f, 150f, 45f), "continue")) 
+            //{ 
+            //    ispuse = false; 
+            //    timer = 0; 
+            //    Cursor.visible = false; 
+            //} 
             if (GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 100f, 150f, 45f), "restart")) 
             {
                 ispuse = false;
                 timer = 0;
-                Application.LoadLevel("level3TEST");
+                //Application.LoadLevel("level3TEST");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             } 
             if (GUI.Button(new Rect((float)(Screen.width / 2), (float)(Screen.height / 2) - 50f, 150f, 45f), "save as")) 
             {
@@ -62,8 +68,7 @@ public class puse : MonoBehaviour
                 StarCollector.starCount = 0;
                 ispuse = false; 
                 timer = 0; 
-                Application.LoadLevel("Menu"); 
-                    // здесь при нажатии на кнопку загружается другая сцена, вы можете изменить название сцены на свое
+                Application.LoadLevel("Menu");
             } 
         } 
     } 
