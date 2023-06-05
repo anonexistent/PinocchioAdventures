@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -67,14 +66,13 @@ public class PlayerHP : MonoBehaviour
         if (HP==0)
         {
             isAlive = false;
-
-            DBConnection.MySqlNewScore();
-
+            
             GameOver();
         }
         hPpanels.transform.GetChild(HP+1).gameObject.SetActive(false);
     }
 
+    
     public void GameOver()
     {
         gameOverCanvas.SetActive(true);
@@ -100,8 +98,6 @@ public class PlayerHP : MonoBehaviour
     {
         Application.Quit();
     }
-
-    //  TEST mySql
 
     public void xxx()
     {

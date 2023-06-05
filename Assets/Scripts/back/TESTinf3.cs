@@ -5,7 +5,7 @@ using UnityEngine;
 #region v1.0
 //public class TESTinf3 : MonoBehaviour
 //{
-//    Transform camera1;
+//    Transform camera;
 //    Vector3 camStart;
 //    float distance;
 //    GameObject[] backs;
@@ -19,8 +19,8 @@ using UnityEngine;
 //    // Start is called before the first frame update
 //    void Start()
 //    {
-//        camera1 = Camera.main.transform;
-//        camStart = camera1.position;
+//        camera = Camera.main.transform;
+//        camStart = camera.position;
 
 //        int backCount = transform.childCount;
 //        mats = new Material[backCount];
@@ -39,23 +39,23 @@ using UnityEngine;
 //    {
 //        for(int i = 0;i < count;i++) 
 //        {
-//            if ((backs[i].transform.position.z - camera1.position.z) < farthestBack)
+//            if ((backs[i].transform.position.z - camera.position.z) < farthestBack)
 //            {
-//                farthestBack = backs[i].transform.position.z - camera1.transform.position.z;
+//                farthestBack = backs[i].transform.position.z - camera.transform.position.z;
 
 //            }
 //        }
 
 //        for (int i = 0; i < count; i++)
 //        {
-//            backSpeed[i] = 1 - (backs[i].transform.position.z - camera1.position.z) / farthestBack;
+//            backSpeed[i] = 1 - (backs[i].transform.position.z - camera.position.z) / farthestBack;
 //        }
 //    }
 
 //    private void LateUpdate()
 //    {
-//        distance = camera1.position.x - camStart.x;
-//        transform.position = new Vector3(camera1.position.x, camera1.position.y, 0);
+//        distance = camera.position.x - camStart.x;
+//        transform.position = new Vector3(camera.position.x, camera.position.y, 0);
 
 //        for (int i = 0; i < backs.Length; i++)
 //        {
@@ -71,7 +71,7 @@ public class TESTinf3 : MonoBehaviour
 {
     Transform cam; // Main Camera
     Vector3 camStartPos;
-    Vector2 distance; // camera1 start position, current position
+    Vector2 distance; // camera start position, current position
 
     GameObject[] backgrounds;
     Material[] mat;

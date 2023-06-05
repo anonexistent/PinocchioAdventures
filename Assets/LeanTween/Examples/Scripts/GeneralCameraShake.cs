@@ -34,7 +34,7 @@ public class GeneralCameraShake : MonoBehaviour {
 				* Camera Shake
 				**************/
 				
-				float shakeAmt = height*0.2f; // the degrees to shake the camera1
+				float shakeAmt = height*0.2f; // the degrees to shake the camera
 				float shakePeriodTime = 0.42f; // The period of each shake
 				float dropOffTime = 1.6f; // How long it takes the shaking to settle down to nothing
 				LTDescr shakeTween = LeanTween.rotateAroundLocal( gameObject, Vector3.right, shakeAmt, shakePeriodTime)
@@ -42,7 +42,7 @@ public class GeneralCameraShake : MonoBehaviour {
 				.setLoopClamp()
 				.setRepeat(-1);
 
-				// Slow the camera1 shake down to zero
+				// Slow the camera shake down to zero
 				LeanTween.value(gameObject, shakeAmt, 0f, dropOffTime).setOnUpdate( 
 					(float val)=>{
 						shakeTween.setTo(Vector3.right*val);
