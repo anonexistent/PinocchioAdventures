@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -21,12 +23,15 @@ public class PlayerHP : MonoBehaviour
     [SerializeField]
     GameObject hPpanels;
 
+    DBConnection dataBase;
+
     private void Start()
     {
         anim= GetComponent<Animator>();
         isAlive=true;
         food = GetComponent<PlayerMove>();
         spawn = GameObject.FindGameObjectWithTag("Respawn").transform;
+        dataBase = GameObject.Find("DataBaseWork").GetComponent<DBConnection>();
     }
 
     private void FixedUpdate()
@@ -75,9 +80,28 @@ public class PlayerHP : MonoBehaviour
     
     public void GameOver()
     {
+        MySqlSendResults(StarCollector.starCount);
+
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
         GameObject.Find("score").GetComponent<TextMeshProUGUI>().text += StarCollector.starCount.ToString() + "☼";
+    }
+
+    private void MySqlSendResults(int sts)
+    {
+        MySqlConnection a = dataBase.Connection();
+        a.Open();
+        string query = $"INSERT INTO `users` (`name`) VALUES ('{StarCollector.starCount}')";
+        var cmd = new MySqlCommand(query, a);
+        cmd.ExecuteNonQuery();
+        //var reader = cmd.ExecuteReader();
+        //while (reader.Read())
+        //{
+        //    string someStringFromColumnZero = reader.GetString(0);
+        //    string someStringFromColumnOne = reader.GetString(1);
+        //    Console.WriteLine(someStringFromColumnZero + "," + someStringFromColumnOne);
+        //}
+        a.Close();
     }
 
     public void NewGame()

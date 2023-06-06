@@ -78,6 +78,7 @@ public class StarCollector : MonoBehaviour
             case "StarQ":
                 StartCoroutine(PreStart(collision));
                 Debug.Log("mega quest begins...");
+
                 StartMegaQuest();
                 collision.gameObject.GetComponent<Animator>().SetTrigger("Taking");
                 Destroy(collision.gameObject);
