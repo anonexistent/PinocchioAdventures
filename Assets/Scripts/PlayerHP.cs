@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerHP : MonoBehaviour
 {
@@ -64,7 +66,7 @@ public class PlayerHP : MonoBehaviour
             Debug.Log(";dfsghtghftrewgr3ew");
         }
     }
-
+    
     void HpMinus()
     {
         HP--;            
@@ -77,10 +79,32 @@ public class PlayerHP : MonoBehaviour
         hPpanels.transform.GetChild(HP+1).gameObject.SetActive(false);
     }
 
+    void TestFormsPosts()
+    {
+        var playerName = "testName";
+        int score = -1;
+        var url = @"localhost/games/";
+
+        WWWForm form = new WWWForm();
+        form.AddField("playerName", playerName);
+        form.AddField("score", score);
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            www.SendWebRequest();
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Record uploaded successfully!");
+            }
+            else
+            {
+                Debug.Log("Error uploading record: " + www.error);
+            }
+        }
+    }
     
     public void GameOver()
     {
-        MySqlSendResults(StarCollector.starCount);
+        //MySqlSendResults(StarCollector.starCount);
 
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);

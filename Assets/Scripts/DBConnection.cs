@@ -66,6 +66,7 @@ public class DBConnection : MonoBehaviour
         }
         catch (MySqlException exception)
         {
+            print("error conn to mySql");
             print(exception.Message);
         }
 
