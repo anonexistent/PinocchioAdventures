@@ -1,7 +1,10 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using JsonQuestion2;
+using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -104,11 +107,41 @@ public class PlayerHP : MonoBehaviour
     
     public void GameOver()
     {
-        MySqlSendResults(StarCollector.starCount);
+        //MySqlSendResults(StarCollector.starCount);
+        JsonSendResults(StarCollector.starCount);
 
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
         GameObject.Find("score").GetComponent<TextMeshProUGUI>().text += StarCollector.starCount.ToString() + "☼";
+    }
+
+    private void JsonSendResults(int sts)
+    {
+        string path = @"http://localhost:81/games/Answers.json";
+        string txtResult;
+
+        WebRequest request = WebRequest.Create(path);
+        WebResponse response = request.GetResponse();
+        var stream = response.GetResponseStream();
+
+        using (StreamReader sr = new StreamReader(stream))
+        {
+            txtResult = sr.ReadToEnd();
+        }
+
+        List<user> a = new() { };
+        for (int i = 0; i < sbyte.MaxValue; i++)
+        {
+            a.Add(new() { name = Random.Range(uint.MinValue, uint.MaxValue).ToString() });
+        }
+        using (StreamWriter sw = new StreamWriter(stream))
+        {
+            sw.Write(JsonConvert.SerializeObject(a));
+        }
+
+        var jsonResultsList = JsonConvert.DeserializeObject<List<user>>(txtResult) ?? new List<user>();
+
+        
     }
 
     private void MySqlSendResults(int sts)
