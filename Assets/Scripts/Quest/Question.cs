@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace JsonQuestion2
 {
-    internal class Question : MonoBehaviour
+    internal class Question
     {
         public int Id { get; set; }
         public string Text { get; set; }

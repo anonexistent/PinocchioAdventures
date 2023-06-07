@@ -6,7 +6,7 @@ public class SpawnObjs : MonoBehaviour
     [Tooltip("for example tempForChunks")]
     public GameObject plane;
     public List<GameObject> objs = new();
-    public static List<GameObject> curObjs = new();
+    public List<GameObject> curObjs = new();
     [Range(0f, 1f)]
     public float enemyChance;
 
@@ -19,16 +19,16 @@ public class SpawnObjs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void ReplaceObject(Chunk ch)
-    {
         if(curObjs.Count > 20) 
         {
             Destroy(curObjs[0]);
             curObjs.RemoveAt(0); 
         }
+    }
+
+    public void ReplaceObject(Chunk ch)
+    {
+
 
         // last current chunk
         var a = plane.transform.GetChild(plane.transform.childCount - 1).gameObject;

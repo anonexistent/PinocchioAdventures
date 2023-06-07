@@ -9,7 +9,7 @@ public class DBConnection : MonoBehaviour
     [Header("Database Properties")]
     public string Host = "localhost";
     public string User = "root";
-    public string Password = "root";
+    public string Password = "";
     public string Database = "test";
 
     //public string Server { get; set; }

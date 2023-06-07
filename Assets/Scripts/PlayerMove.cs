@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
 
     public float xInput;
     public float xForce = 2.0f;
-    public float yForce = 4.0f;
+    public float yForce = 4.5f;
 
     public LayerMask groundLayer;
     public Transform feets;
@@ -22,10 +22,13 @@ public class PlayerMove : MonoBehaviour
 
     public GameObject rifle;
 
+    SpawnObjs sObjs;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        sObjs = GameObject.Find("ObjectSpawner").GetComponent<SpawnObjs>();
     }
 
 
@@ -71,7 +74,7 @@ public class PlayerMove : MonoBehaviour
         var a = Instantiate(rifle);
         a.transform.position = transform.position;
         a.GetComponent<Rigidbody2D>().AddForce(new Vector2(rightOrientation?100f:-100f,10f));
-        SpawnObjs.curObjs.Add(a);
+        sObjs.curObjs.Add(a);
     }
 
     void Flip()

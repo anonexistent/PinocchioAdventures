@@ -104,7 +104,7 @@ public class PlayerHP : MonoBehaviour
     
     public void GameOver()
     {
-        //MySqlSendResults(StarCollector.starCount);
+        MySqlSendResults(StarCollector.starCount);
 
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
@@ -115,7 +115,7 @@ public class PlayerHP : MonoBehaviour
     {
         MySqlConnection a = dataBase.Connection();
         a.Open();
-        string query = $"INSERT INTO `users` (`name`) VALUES ('{StarCollector.starCount}')";
+        string query = $"INSERT INTO users(name) VALUES ('{StarCollector.starCount}')";
         var cmd = new MySqlCommand(query, a);
         cmd.ExecuteNonQuery();
         //var reader = cmd.ExecuteReader();
