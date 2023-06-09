@@ -117,7 +117,8 @@ public class PlayerHP : MonoBehaviour
 
     private void JsonSendResults(int sts)
     {
-        string path = @"http://localhost:81/games/Answers.json";
+        //string path = @"http://localhost:81/games/";
+        string path = @"D:\xampp\htdocs\games\Answers.json";
         string txtResult;
 
         WebRequest request = WebRequest.Create(path);
@@ -128,20 +129,27 @@ public class PlayerHP : MonoBehaviour
         {
             txtResult = sr.ReadToEnd();
         }
+        
+        var a = JsonConvert.DeserializeObject<List<user>>(txtResult) ?? new List<user>();
+        //for (int i = 0; i < sbyte.MaxValue; i++)
+        //{
+        //    a.Add(new() { name = Random.Range(uint.MinValue, uint.MaxValue).ToString() });
+        //}
 
-        List<user> a = new() { };
-        for (int i = 0; i < sbyte.MaxValue; i++)
-        {
-            a.Add(new() { name = Random.Range(uint.MinValue, uint.MaxValue).ToString() });
-        }
-        using (StreamWriter sw = new StreamWriter(stream))
-        {
-            sw.Write(JsonConvert.SerializeObject(a));
-        }
+        a.Add(new() { id=UnityEngine.Random.Range(sbyte.MinValue, sbyte.MaxValue), name = StarCollector.starCount.ToString() });
 
-        var jsonResultsList = JsonConvert.DeserializeObject<List<user>>(txtResult) ?? new List<user>();
+        using (StreamWriter sw = new StreamWriter(
+            //stream
+            path
+            ))
+        {
+            var temp = JsonConvert.SerializeObject(a, Formatting.Indented);
+            sw.Write(temp);
+        }
 
         
+
+        response.Close();
     }
 
     private void MySqlSendResults(int sts)
