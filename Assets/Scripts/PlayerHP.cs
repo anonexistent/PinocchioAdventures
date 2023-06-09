@@ -109,7 +109,7 @@ public class PlayerHP : MonoBehaviour
     {
         //MySqlSendResults(StarCollector.starCount);
         //StartCoroutine(
-        JsonSendResults(StarCollector.starCount);
+        //JsonSendResults(StarCollector.starCount);
 
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
