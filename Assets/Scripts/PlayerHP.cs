@@ -108,6 +108,7 @@ public class PlayerHP : MonoBehaviour
     public void GameOver()
     {
         //MySqlSendResults(StarCollector.starCount);
+        //StartCoroutine(
         JsonSendResults(StarCollector.starCount);
 
         gameOverCanvas.SetActive(true);
@@ -115,7 +116,7 @@ public class PlayerHP : MonoBehaviour
         GameObject.Find("score").GetComponent<TextMeshProUGUI>().text += StarCollector.starCount.ToString() + "☼";
     }
 
-    private void JsonSendResults(int sts)
+    void JsonSendResults(int sts)
     {
         //string path = @"http://localhost:81/games/";
         string path = @"D:\xampp\htdocs\games\Answers.json";
@@ -123,33 +124,47 @@ public class PlayerHP : MonoBehaviour
 
         WebRequest request = WebRequest.Create(path);
         WebResponse response = request.GetResponse();
+        //yield return response.GetResponseStream();
+
+        FileStream s = new(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+
         var stream = response.GetResponseStream();
 
-        using (StreamReader sr = new StreamReader(stream))
+        using (StreamReader sr = new StreamReader(s))
         {
             txtResult = sr.ReadToEnd();
         }
-        
+        Debug.Log("json got");
         var a = JsonConvert.DeserializeObject<List<user>>(txtResult) ?? new List<user>();
         //for (int i = 0; i < sbyte.MaxValue; i++)
         //{
         //    a.Add(new() { name = Random.Range(uint.MinValue, uint.MaxValue).ToString() });
         //}
 
-        a.Add(new() { id=UnityEngine.Random.Range(sbyte.MinValue, sbyte.MaxValue), name = StarCollector.starCount.ToString() });
+        a.Add(new() { id=UnityEngine.Random.Range(sbyte.MinValue, sbyte.MaxValue), name = sts.ToString() });
+        Debug.Log("create new for json");
+        //using (StreamWriter sw = new StreamWriter(
+        //    //stream
+        //    path
+        //    ))
+        //{
+        //    var temp = JsonConvert.SerializeObject(a, Formatting.Indented);
+        //    sw.Write(temp);
+        //}
+        var temp = JsonConvert.SerializeObject(a, Formatting.Indented);
+        Debug.Log("new for json serilization");
+        //File.WriteAllText(path, temp, encoding: System.Text.Encoding.UTF8);
 
-        using (StreamWriter sw = new StreamWriter(
-            //stream
-            path
-            ))
+        using (StreamWriter sw = new StreamWriter(s))
         {
-            var temp = JsonConvert.SerializeObject(a, Formatting.Indented);
             sw.Write(temp);
         }
 
-        
+        Debug.Log("writing");
 
         response.Close();
+
+        //yield return null;
     }
 
     private void MySqlSendResults(int sts)

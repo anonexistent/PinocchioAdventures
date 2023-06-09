@@ -20,7 +20,9 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
 
-    public GameObject rifle;
+    public GameObject rifle; 
+    public GameObject rifle2;
+
 
     SpawnObjs sObjs;
 
@@ -71,7 +73,7 @@ public class PlayerMove : MonoBehaviour
 
     private void PlayerWinBestEnemies()
     {
-        var a = Instantiate(rifle);
+        var a = Instantiate(rifle2);
         a.transform.position = transform.position;
         a.GetComponent<Rigidbody2D>().AddForce(new Vector2(rightOrientation?100f:-100f,10f));
         sObjs.curObjs.Add(a);
