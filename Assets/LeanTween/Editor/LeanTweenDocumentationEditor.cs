@@ -9,7 +9,7 @@ public class LeanTweenDocumentationEditor : Editor {
 	static void openDocumentation()
 	{
 		#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_0_1 && !UNITY_4_1 && !UNITY_4_2 && !UNITY_4_3
-		// Loops through all items in case the user has moved the default installation directory
+		// Loops through all items in case the UserProfile has moved the default installation directory
 		string[] guids = AssetDatabase.FindAssets ("LeanTween", null);
 		string documentationPath = "";
 		foreach (string guid in guids){

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class user
+public class UserProfile
 {
     public int id { get; set; }
     public string name { get; set; }

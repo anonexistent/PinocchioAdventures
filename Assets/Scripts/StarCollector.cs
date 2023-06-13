@@ -38,6 +38,15 @@ public class StarCollector : MonoBehaviour
 
     private void Start()
     {
+        var b = UnityWebRequest.Get(@"http://localhost:5000/api/1");
+        b.SendWebRequest();
+
+        Debug.Log(">>" + b.downloadProgress);
+
+
+
+
+
         hPpanels = GameObject.Find("PanelplayerHP");
         animator = questionPanel.GetComponent<Animator>();
         GetQuss();
@@ -85,7 +94,7 @@ public class StarCollector : MonoBehaviour
                 break;
 
             case "finish":
-                StartCoroutine(PreStart(collision));
+                //StartCoroutine(PreStart(collision));
                 Debug.Log("hourse");
                 break;
 
@@ -291,6 +300,7 @@ public class StarCollector : MonoBehaviour
             Debug.Log("json file has been goted");
             questions = JsonConvert.DeserializeObject<List<Question>>(wr.downloadHandler.text) ?? new List<Question>();
         }
+
     }
 
     public void EndQuestionActivity()
@@ -333,6 +343,7 @@ public class StarCollector : MonoBehaviour
 
         //string path2 = Path.Combine(Environment.CurrentDirectory, "Questions.json");
         JsonWebRequest(@"http://localhost:81/games/Questions.json");
+
         //Debug.Log(path2);
         //questions = JsonConvert.DeserializeObject<List<Question>>(path2) ?? new List<Question>();
 

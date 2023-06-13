@@ -1,10 +1,12 @@
 ﻿using JsonQuestion2;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -109,7 +111,7 @@ public class PlayerHP : MonoBehaviour
     {
         //MySqlSendResults(StarCollector.starCount);
         //StartCoroutine(
-        //JsonSendResults(StarCollector.starCount);
+        JsonSendResults2(StarCollector.starCount);
 
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
@@ -126,45 +128,120 @@ public class PlayerHP : MonoBehaviour
         WebResponse response = request.GetResponse();
         //yield return response.GetResponseStream();
 
-        FileStream s = new(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        //FileStream s = new(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
 
         var stream = response.GetResponseStream();
 
-        using (StreamReader sr = new StreamReader(s))
-        {
-            txtResult = sr.ReadToEnd();
-        }
-        Debug.Log("json got");
-        var a = JsonConvert.DeserializeObject<List<user>>(txtResult) ?? new List<user>();
-        //for (int i = 0; i < sbyte.MaxValue; i++)
+        //var list = JsonConvert.DeserializeObject<List<Question>>(File.ReadAllText(path2)) ?? new List<Question>();
+
+        List<UserProfile> list;
+
+        //using (StreamReader sr = new StreamReader(s))
         //{
-        //    a.Add(new() { name = Random.Range(uint.MinValue, uint.MaxValue).ToString() });
+        //    //txtResult = sr.ReadToEnd();
+        //    list = JsonConvert.DeserializeObject<List<UserProfile>>(sr.ReadToEnd()) ?? new List<UserProfile>();
         //}
 
-        a.Add(new() { id=UnityEngine.Random.Range(sbyte.MinValue, sbyte.MaxValue), name = sts.ToString() });
+        list = JsonConvert.DeserializeObject<List<UserProfile>>(File.ReadAllText(path)) ?? new List<UserProfile>();
+
+        Debug.Log("json got");
+        //var newUserPro = JsonConvert.DeserializeObject<List<UserProfile>>(txtResult) ?? new List<UserProfile>();
+        //for (int i = 0; i < sbyte.MaxValue; i++)
+        //{
+        //    newUserPro.Add(new() { name = Random.Range(uint.MinValue, uint.MaxValue).ToString() });
+        //}
+
+        list.Add(new() { id=UnityEngine.Random.Range(sbyte.MinValue, sbyte.MaxValue), name = sts.ToString() });
         Debug.Log("create new for json");
         //using (StreamWriter sw = new StreamWriter(
         //    //stream
         //    path
         //    ))
         //{
-        //    var temp = JsonConvert.SerializeObject(a, Formatting.Indented);
+        //    var temp = JsonConvert.SerializeObject(newUserPro, Formatting.Indented);
         //    sw.Write(temp);
         //}
-        var temp = JsonConvert.SerializeObject(a, Formatting.Indented);
+        var temp = JsonConvert.SerializeObject(list);
         Debug.Log("new for json serilization");
         //File.WriteAllText(path, temp, encoding: System.Text.Encoding.UTF8);
 
-        using (StreamWriter sw = new StreamWriter(s))
+        using (StreamWriter sw = new StreamWriter(new FileStream(path, FileMode.Open, FileAccess.Read)))
         {
             sw.Write(temp);
         }
+        //File.WriteAllText(path, temp);
 
         Debug.Log("writing");
 
         response.Close();
 
         //yield return null;
+    }
+
+    void JsonSendResults2(int sts)
+    {
+        string path = @"D:\xampp\htdocs\games\Answers.json";
+        string tempPath;
+
+        UserProfile newUserPro = new() { id = UnityEngine.Random.Range(ushort.MinValue, ushort.MaxValue), name = sts.ToString() };
+        //string jsonUser = JsonUtility.ToJson(newUserPro);
+        //string jsonU = JsonConvert.SerializeObject(newUserPro);
+        string allUsers;
+
+        //try
+        //{
+        
+        string x =
+            //Assembly.GetEntryAssembly().Location
+            Application.dataPath
+            ;
+            Debug.Log("====\n" + Application.platform.ToString() + $"\n{x}" + "\n====");
+
+            path = 
+                //Path.Combine(Assembly.GetExecutingAssembly().Location.Split(@"\"))
+                GetAnswersLocation()
+                ;
+            
+            //  this line needs to be trimmed
+            int lastSlash = path.LastIndexOf(@"\") + 1;
+            int preLastSlash = path.Substring(0, lastSlash).LastIndexOf(@"\") + 1;
+            path = path.Substring(0, preLastSlash) + "Answers.json";
+            //Debug.Log(path);
+            allUsers = File.ReadAllText(path);
+        //}
+        //catch (Exception)
+        //{
+        //    throw;
+        //}
+
+        var usersList = JsonConvert.DeserializeObject<List<UserProfile>>(allUsers) ?? new List<UserProfile>();
+
+        usersList.Add(newUserPro);
+
+        string newJson = JsonConvert.SerializeObject(usersList);
+
+        Debug.Log(newJson);
+
+        File.WriteAllText(path, newJson);
+
+        
+    }
+
+    string GetAnswersLocation()
+    {
+        string r = Assembly.GetExecutingAssembly().Location;
+
+        var a = r.IndexOf("demo007")+7;
+        var aa = r.IndexOf("PinocchioAdventures") + ("PinocchioAdventures").Length;
+
+        if(Application.platform.ToString()== "WindowsEditor")
+        {
+            return r.Substring(0, aa) + "\\Answers.json";
+        }
+        else
+        {
+            return r.Substring(0, a) + "\\Answers.json";
+        }
     }
 
     private void MySqlSendResults(int sts)
