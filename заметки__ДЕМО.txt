@@ -144,10 +144,10 @@ asp net;
 —	запись счета в файл джсон на диске;
 —	не работет запись в джсон;
 —	добавление пилюль;
-&&&	анимацию окна вопроса фиксить надо();
+???	анимацию окна вопроса фиксить надо();
 
 (13062023)
-запись в джон все хорошо если не билдить;
+запись в джcон все хорошо если не билдить;
 
 ====================
 FileNotFoundException: Could not find file "/D:\xampp\htdocs\games\Answers.json"
@@ -161,5 +161,10 @@ solution:	Environment.ProcessPath
 новый сайт с вопросами (даже по темам)
 https://geetest.ru/tests/terapiya_(na_sertifikat)_/list/17
 ====================
+api keys for openweathermap.org
 878044d999f1bf15f6a14cc61f9d72ca
 de37735e7f9579d478fd89aa3d45ca80
+
+(14062023)
+интеграция с джс (test007-index.html, TestJava.jslib, JavaScript.cs-PluginTestWeb() );
+новые кнопочки (https://geekstand.top/development/unity-ui-bolee-prodvinutye-button/);

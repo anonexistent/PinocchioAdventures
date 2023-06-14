@@ -180,51 +180,53 @@ public class PlayerHP : MonoBehaviour
 
     void JsonSendResults2(int sts)
     {
-        string path = @"D:\xampp\htdocs\games\Answers.json";
-        string tempPath;
+        #region WorkingButNotInTheBuild
 
-        UserProfile newUserPro = new() { id = UnityEngine.Random.Range(ushort.MinValue, ushort.MaxValue), name = sts.ToString() };
-        //string jsonUser = JsonUtility.ToJson(newUserPro);
-        //string jsonU = JsonConvert.SerializeObject(newUserPro);
-        string allUsers;
+        //string path = @"D:\xampp\htdocs\games\Answers.json";
+        //string tempPath;
 
-        //try
-        //{
-        
-        string x =
-            //Assembly.GetEntryAssembly().Location
-            Application.dataPath
-            ;
-            Debug.Log("====\n" + Application.platform.ToString() + $"\n{x}" + "\n====");
+        //UserProfile newUserPro = new() { id = UnityEngine.Random.Range(ushort.MinValue, ushort.MaxValue), name = sts.ToString() };
+        ////string jsonUser = JsonUtility.ToJson(newUserPro);
+        ////string jsonU = JsonConvert.SerializeObject(newUserPro);
+        //string allUsers;
 
-            path = 
-                //Path.Combine(Assembly.GetExecutingAssembly().Location.Split(@"\"))
-                GetAnswersLocation()
-                ;
-            
-            //  this line needs to be trimmed
-            int lastSlash = path.LastIndexOf(@"\") + 1;
-            int preLastSlash = path.Substring(0, lastSlash).LastIndexOf(@"\") + 1;
-            path = path.Substring(0, preLastSlash) + "Answers.json";
-            //Debug.Log(path);
-            allUsers = File.ReadAllText(path);
-        //}
-        //catch (Exception)
-        //{
-        //    throw;
-        //}
+        ////try
+        ////{
 
-        var usersList = JsonConvert.DeserializeObject<List<UserProfile>>(allUsers) ?? new List<UserProfile>();
+        //string x =
+        //    //Assembly.GetEntryAssembly().Location
+        //    Application.dataPath
+        //    ;
+        //Debug.Log("====\n" + Application.platform.ToString() + $"\n{x}" + "\n====");
 
-        usersList.Add(newUserPro);
+        //path =
+        //    //Path.Combine(Assembly.GetExecutingAssembly().Location.Split(@"\"))
+        //    GetAnswersLocation()
+        //    ;
 
-        string newJson = JsonConvert.SerializeObject(usersList);
+        ////  this line needs to be trimmed
+        //int lastSlash = path.LastIndexOf(@"\") + 1;
+        //int preLastSlash = path.Substring(0, lastSlash).LastIndexOf(@"\") + 1;
+        //path = path.Substring(0, preLastSlash) + "Answers.json";
+        ////Debug.Log(path);
+        //allUsers = File.ReadAllText(path);
+        ////}
+        ////catch (Exception)
+        ////{
+        ////    throw;
+        ////}
 
-        Debug.Log(newJson);
+        //var usersList = JsonConvert.DeserializeObject<List<UserProfile>>(allUsers) ?? new List<UserProfile>();
 
-        File.WriteAllText(path, newJson);
+        //usersList.Add(newUserPro);
 
-        
+        //string newJson = JsonConvert.SerializeObject(usersList);
+
+        //Debug.Log(newJson);
+
+        //File.WriteAllText(path, newJson);
+
+        #endregion
     }
 
     string GetAnswersLocation()
