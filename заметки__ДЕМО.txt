@@ -168,3 +168,8 @@ de37735e7f9579d478fd89aa3d45ca80
 (14062023)
 интеграция с джс (test007-index.html, TestJava.jslib, JavaScript.cs-PluginTestWeb() );
 новые кнопочки (https://geekstand.top/development/unity-ui-bolee-prodvinutye-button/);
+мини-скрипт в джс выводит не стркоу а цыфру;
+
+(15062023)
+
+(16062023)

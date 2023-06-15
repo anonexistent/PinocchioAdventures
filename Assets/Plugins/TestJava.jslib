@@ -1,5 +1,8 @@
 mergeInto(LibraryManager.library, {
-PluginTestWeb: function (a) {
+OtherFunc: function(b) {
+	FromJsToUnity(b);
+},
+PluginTestWeb: function(a) {
     FromUnityToJs (a);
 }
 

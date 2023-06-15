@@ -34,6 +34,8 @@ public class PlayerHP : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+
         anim= GetComponent<Animator>();
         isAlive=true;
         food = GetComponent<PlayerMove>();
@@ -111,8 +113,10 @@ public class PlayerHP : MonoBehaviour
     {
         //MySqlSendResults(StarCollector.starCount);
         //StartCoroutine(
-        JsonSendResults2(StarCollector.starCount);
+        //JsonSendResults2(StarCollector.starCount);
+        JavaScript.RequestJs();
 
+        Cursor.visible = true;
         gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
         GameObject.Find("score").GetComponent<TextMeshProUGUI>().text += StarCollector.starCount.ToString() + "☼";
