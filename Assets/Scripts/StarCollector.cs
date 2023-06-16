@@ -43,10 +43,6 @@ public class StarCollector : MonoBehaviour
 
         Debug.Log(">>" + b.downloadProgress);
 
-
-
-
-
         hPpanels = GameObject.Find("PanelplayerHP");
         animator = questionPanel.GetComponent<Animator>();
         GetQuss();
@@ -59,7 +55,6 @@ public class StarCollector : MonoBehaviour
 
     void Update()
     {
-
         starsText.text = starCount.ToString();
         //if (animator.GetCurrentAnimatorStateInfo(0).IsName("QuestionPanelStart")) Debug.Log("anim anim anim anim");
         //if (animator.runtimeAnimatorController.animationClips[0].)
@@ -155,8 +150,6 @@ public class StarCollector : MonoBehaviour
     //  ~ onGui
     void CreateButtons()
     {
-
-
         float tempHeight = 0.0f;
 
         for (int i = 0; i < currQ.Answers.Count; i++)

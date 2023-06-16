@@ -11,15 +11,15 @@ public class JavaScript : MonoBehaviour
     private static extern void PluginTestWeb(float a);
     [DllImport("__Internal")]
     private static extern void OtherFunc(int a);
+    [DllImport("__Internal")]
+    private static extern void TestMySql(int x);
 
-    // Start is called before the first frame update
     void Start()
     {
         //RequestJs();
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -27,9 +27,18 @@ public class JavaScript : MonoBehaviour
 
     public static void RequestJs()
     {
-        var a = Random.Range(0f, 128f);
-        //PluginTestWeb(a);
-        OtherFunc(StarCollector.starCount);
+        try
+        {
+            var a = Random.Range(0f, 128f);
+            //PluginTestWeb(a);
+            OtherFunc(StarCollector.starCount);
+            TestMySql(StarCollector.starCount);
+        }
+        catch (System.Exception)
+        {
+
+        }
+
     }
 
     public void ResponseOk()

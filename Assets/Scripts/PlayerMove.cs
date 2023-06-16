@@ -24,7 +24,6 @@ public class PlayerMove : MonoBehaviour
     public GameObject rifle; 
     public GameObject rifle2;
 
-
     SpawnObjs sObjs;
 
     void Start()

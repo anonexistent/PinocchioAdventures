@@ -55,8 +55,7 @@ public class PlayerHP : MonoBehaviour
     {
         if(collision.gameObject.tag == "enemy")
         {
-            HpMinus(); 
-                         
+            HpMinus();                         
 
             if(Input.GetKeyDown(KeyCode.Escape))
             {

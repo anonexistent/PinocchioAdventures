@@ -28,8 +28,6 @@ public class SpawnObjs : MonoBehaviour
 
     public void ReplaceObject(Chunk ch)
     {
-
-
         // last current chunk
         var a = plane.transform.GetChild(plane.transform.childCount - 1).gameObject;
         var curObjParent = objs[Random.RandomRange(0, objs.Count)];

@@ -4,6 +4,9 @@ OtherFunc: function(b) {
 },
 PluginTestWeb: function(a) {
     FromUnityToJs (a);
+},
+TestMySql: function(x) {
+	FromUnityToMySql(x);
 }
 
 });

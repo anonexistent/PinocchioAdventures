@@ -25,5 +25,4 @@ public class WhoDie : MonoBehaviour
             //Destroy(gameObject);
         }
     }
-
 }
