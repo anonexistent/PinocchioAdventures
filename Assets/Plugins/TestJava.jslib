@@ -6,7 +6,7 @@ PluginTestWeb: function(a) {
     FromUnityToJs (a);
 },
 TestMySql: function(x) {
-	FromUnityToMySql(x);
+	FromUnityToMySqlWithPhp(x);
 }
 
 });
