@@ -109,7 +109,6 @@ public class StarCollector : MonoBehaviour
     //  event
     private void StartMegaQuest()
     {        
-        ClearListFromScene(btns);
         // child list 0 - preview 1 - questtxt 2 - answers
 
         //GameObject panel = GameObject.FindWithTag("QuestionPanel");
@@ -172,13 +171,14 @@ public class StarCollector : MonoBehaviour
     }
 
     //  for game obj btns
-    void ClearListFromScene(List<GameObject> list)
+    IEnumerator ClearListFromScene(List<GameObject> list)
     {
         foreach (GameObject item in list)
         {
             Destroy(item);
         }
         list.Clear();
+        yield return null;
     }
 
     #region RemnantsOfPast
@@ -307,11 +307,25 @@ public class StarCollector : MonoBehaviour
 
         Time.timeScale = 1;
         UnityEngine.Cursor.visible = false;
-        StartCoroutine(Close());
+        //StartCoroutine(Close());
         //questionPanel.SetActive(!questionPanel.active);        
         UnityEngine.Cursor.visible = false;
         puse.isQuestActive = false;
         //throw new NullReferenceException();
+
+        StartCoroutine(ClearBtns1());
+    }
+
+    IEnumerator ClearBtns1()
+    {
+        yield return null;
+        yield return StartCoroutine(ClearButns2());
+    }
+
+    IEnumerator ClearButns2()
+    {
+        yield return StartCoroutine(Close());
+        yield return StartCoroutine(ClearListFromScene(btns));
     }
 
     IEnumerator Close()
