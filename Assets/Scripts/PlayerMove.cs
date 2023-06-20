@@ -50,6 +50,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.R))
         {
+            StarCollector.starCount = 0;
             Application.LoadLevel(0);
         }
         else if(Input.GetKeyDown(KeyCode.F))
