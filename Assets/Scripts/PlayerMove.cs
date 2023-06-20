@@ -63,7 +63,7 @@ public class PlayerMove : MonoBehaviour
 
         // run anim
         if (xInput != 0) animator.SetBool("Runnig", true);
-        else animator.SetBool("Runnig", false); 
+        else animator.SetBool("Runnig", false);
 
         // idle anim
         if (isGround) animator.SetBool("Grounded", true); //2
