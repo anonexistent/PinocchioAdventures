@@ -42,6 +42,7 @@
 —	фикс джcон рабочего (рабочий потому что сам проект - ворк, 
 —	исполняемый файл - работает);
 =========
+update: оно уже не работает
 нашли отличный список вопросов (1000 штук)
 https://medicalmatter.ru/pdf/testy-po-terapii-dlya-vrachej-s-otvetami-2020.pdf
 ========= ;
@@ -117,7 +118,7 @@ System.IO.FileOptions options) [0x00000] in <00000000000000000000000000000000>:0
 —	фикс гитхаба опять;
 		git reset --soft HEAD~3
 		(обьединение последних 3х коммитов)
-asp net;
+—	asp net;
 
 (06062023)
 —	но ведь длл для джсон как то работает???? ;
@@ -147,7 +148,7 @@ asp net;
 ???	анимацию окна вопроса фиксить надо();
 
 (13062023)
-запись в джcон все хорошо если не билдить;
+—	запись в джcон все хорошо если не билдить;
 
 ====================
 FileNotFoundException: Could not find file "/D:\xampp\htdocs\games\Answers.json"
@@ -164,26 +165,38 @@ https://geetest.ru/tests/terapiya_(na_sertifikat)_/list/17
 api keys for openweathermap.org
 878044d999f1bf15f6a14cc61f9d72ca
 de37735e7f9579d478fd89aa3d45ca80
+====================
 
 (14062023)
-интеграция с джс (test007-index.html, TestJava.jslib, JavaScript.cs-PluginTestWeb() );
-новые кнопочки (https://geekstand.top/development/unity-ui-bolee-prodvinutye-button/);
-мини-скрипт в джс выводит не стркоу а цыфру;
+—	интеграция с джс (test007-index.html, TestJava.jslib, JavaScript.cs-PluginTestWeb() );
+???	новые кнопочки (https://geekstand.top/development/unity-ui-bolee-prodvinutye-button/);
+???	мини-скрипт в джс выводит не стркоу а цыфру;
 
 (15062023)
 
 (16062023)
-работаем над задним фоном;
+???	работаем над задним фоном;
 углубление в веб;
 жаваСкрипт + пхп;
 
 (17062023)
-фикс пробел = нажатие на правильный вариант ответа (отсюда дюп звезд);
-отправка в бд `http://localhost:81/games/insert_data.php?id=${tempId}&name=${x}`;
+—	фикс пробел = нажатие на правильный вариант ответа (отсюда дюп звезд);
+—	отправка в бд `http://localhost:81/games/insert_data.php?id=${tempId}&name=${x}`;
 
 (19062023)
-новый герой (работа с аниматаором, скрипт, работа с спрайтами);
+—	новый герой (работа с аниматаором, скрипт, работа с спрайтами);
 
 (20062023)
-работа с аниматаором;
+—	работа с аниматаором;
 
+(21062023)
+???	проект необходимо привести в порядок
+	за все время работы собралось много временных/test файлов
+	нпр ChunkSpawnerForTest или Bobo(1) и сама главная сцена называется TEST (ржака);
+проблема заднего фона;
+фикс окон вопросов;
+надо трай кеч на подключение к бд;
+не забываем тащить везде с собой крутой (заряженный) файл index.html;
+==================
+use test; select userDate as date, name as score from users order by date desc;
+==================
