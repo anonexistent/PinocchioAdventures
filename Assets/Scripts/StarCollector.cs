@@ -99,11 +99,12 @@ public class StarCollector : MonoBehaviour
     }
     #region ThenTheLivingWillEnvyTheDead
 
+    //  taking star animation
     IEnumerator PreStart(Collider2D col)
     {
         yield return col.transform.LeanScale(Vector2.one*8,2f);
-        yield return new WaitForSeconds(2.1f);
-        yield return col.transform.LeanScale(Vector2.zero, 2f).setEasePunch();
+        //yield return new WaitForSeconds(2.1f);
+        //yield return col.transform.LeanScale(Vector2.zero, 2f).setEasePunch();
     }
 
     //  event

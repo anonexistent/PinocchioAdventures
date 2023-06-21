@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnObjs : MonoBehaviour
@@ -19,8 +20,9 @@ public class SpawnObjs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(curObjs.Count > 20) 
+        if (curObjs.Count > 20) 
         {
+
             Destroy(curObjs[0]);
             curObjs.RemoveAt(0); 
         }

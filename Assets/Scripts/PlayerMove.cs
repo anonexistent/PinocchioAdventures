@@ -77,6 +77,8 @@ public class PlayerMove : MonoBehaviour
         var a = Instantiate(rifle2);
         a.transform.position = transform.position;
         a.GetComponent<Rigidbody2D>().AddForce(new Vector2(rightOrientation?100f:-100f,10f));
+        //  instead this we make tag 'Rifle' and now cur principe is
+        //  may be only 3 thgs instead infinity count in stack
         sObjs.curObjs.Add(a);
     }
 

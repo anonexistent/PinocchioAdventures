@@ -204,8 +204,10 @@ use test; select userDate as date, name as score from users order by date desc;
 ==================
 
 —	новый тайлсет;
-есть идея динамиеской смены фона ( плованоеalpha от 0 до 1);
+есть идея динамической смены фона ( плованоеalpha от 0 до 1);
 ???	фикс джсонМейкера;
 ???	решение проблемы MissingReferenceException: The object of type 
 	'CircleCollider2D' has been destroyed but you are still trying to access it.
 —	!!!prefab variant делает унаследованный обьект!!!;
+с этими карутинами печальными постоянно сыпятся NullReferenceException   >:(   ;
+???	!!!!PlayerMove:80;
