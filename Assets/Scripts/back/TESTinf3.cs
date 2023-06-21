@@ -30,7 +30,7 @@ using UnityEngine;
 //        for(int i = 0; i < backCount; i++)
 //        {
 //            backs[i] = transform.GetChild(i).gameObject;
-//            mats[i] = backs[i].GetComponent<Renderer>().material;
+//            mats[i] = backs[i].GetComponent<Renderer>().m;
 //        }
 //        HowBackSpeed(backCount);
 //    }

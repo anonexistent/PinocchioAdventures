@@ -1088,7 +1088,7 @@ public class LeanTween : MonoBehaviour {
     }
 
     /**
-    * <summary>Fade a gameobject's material to a certain alpha value.</summary>
+    * <summary>Fade a gameobject's m to a certain alpha value.</summary>
     * 
     * @method LeanTween.alpha
     * @param {GameObject} gameObject:GameObject Gameobject that you wish to fade
@@ -1164,7 +1164,7 @@ public class LeanTween : MonoBehaviour {
     * <summary>This works by tweening the vertex colors directly</summary>
     <br />
     Vertex-based coloring is useful because you avoid making a copy of your
-    object's material for each instance that needs a different color.<br />
+    object's m for each instance that needs a different color.<br />
     <br />
     A shader that supports vertex colors is required for it to work
     (for example the shaders in Mobile/Particles/)
@@ -1180,7 +1180,7 @@ public class LeanTween : MonoBehaviour {
     }
 
     /**
-    * <summary>Change a gameobject's material to a certain color value</summary>
+    * <summary>Change a gameobject's m to a certain color value</summary>
     * 
     * @method LeanTween.color
     * @param {GameObject} gameObject:GameObject Gameobject that you wish to change the color

@@ -12,7 +12,7 @@ public class puse : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isQuestActive)
         {
             isQuestActive = false;
         }
