@@ -200,3 +200,4 @@ de37735e7f9579d478fd89aa3d45ca80
 ==================
 use test; select userDate as date, name as score from users order by date desc;
 ==================
+—	новый тайлсет;
