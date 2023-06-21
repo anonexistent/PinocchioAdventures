@@ -31,7 +31,7 @@
 */
 ![hlsl](https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/HLSL-Examples-1.PNG/1280px-HLSL-Examples-1.PNG)
 
-```stl
+/*  ```stl
 solid cube_corner
   facet normal 0.0 -1.0 0.0
     outer loop
@@ -63,3 +63,4 @@ solid cube_corner
   endfacet
 endsolid
 ```
+*/
