@@ -15,7 +15,6 @@
 
 ```geojson
 {
-  {
   "type": "Feature",
   "geometry": {
     "type": "Point",
