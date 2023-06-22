@@ -74,11 +74,13 @@ public class ChunkPlacer : MonoBehaviour
     void Update()
     {
         // 90% curChunck
-        if (Player.position.x > (CurrentChunks[CurrentChunks.Count - 1].endChunk.position.x) * (0.8f))
-        {
+        float endOfCurCh = CurrentChunks[CurrentChunks.Count - 1].endChunk.position.x;
+        if (Player.position.x > endOfCurCh * (0.8f + temp))
+        {            
             if (temp >= 0.09f) temp = 0;
             temp += 0.001f;
             SpawnNewChunk();
+            Debug.Log("=======\nplayer :" + Player.position.x + $"\nchunk : {CurrentChunks[CurrentChunks.Count-1].endChunk.position.x}=======");
             for (int i = 0; i < curObjsCount; i++) objsSpawner.ReplaceObject(CurrentChunks[^1]);
         }
 

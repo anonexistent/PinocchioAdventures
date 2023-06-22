@@ -200,7 +200,7 @@ de37735e7f9579d478fd89aa3d45ca80
 не забываем тащить везде с собой крутой (заряженный) файл index.html;
 
 ==================
-use test; select userDate as date, name as score from users order by date desc;
+use test; select name as score, userDate as date from users order by date desc limit 100;
 ==================
 
 —	новый тайлсет;
@@ -214,7 +214,8 @@ use test; select userDate as date, name as score from users order by date desc;
 
 (22062023)
 на данынй момент 2 серьезных бага :
-спавн чанков сейчас примерно до x=200, спавн (пропажа обьектов);
+спавн чанков сейчас примерно до x=200, 
+спавн (пропажа обьектов);
 
 =============
 карты рисовать кисти
@@ -223,3 +224,4 @@ https://itch.io/game-assets/free/tag-tilemap
 
 new enemy;
 ремонт иерархии проекта (=======);
+с чанками теперь вообще беда после дефолтного чанка следующий появляется оч поздно  >:(  ;
