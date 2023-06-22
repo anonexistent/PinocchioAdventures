@@ -211,3 +211,14 @@ use test; select userDate as date, name as score from users order by date desc;
 —	!!!prefab variant делает унаследованный обьект!!!;
 с этими карутинами печальными постоянно сыпятся NullReferenceException   >:(   ;
 ???	!!!!PlayerMove:80;
+
+(22062023)
+на данынй момент 2 серьезных бага :
+спавн чанков, спавн (пропажа обьектов);
+
+=============
+карты рисовать кисти
+https://itch.io/game-assets/free/tag-tilemap
+=============
+
+new enemy;
