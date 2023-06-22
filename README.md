@@ -15,27 +15,16 @@
 
 ```geojson
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "id": 1,
-      "properties": {
-        "ID": 0
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-              [51.765266260265115, 55.12436792026131],
-              [51.765266260265100, 55.12436792026100],
-              [51.765266260265200, 55.12436792026200],
-              [51.765266260265115, 55.12436792026131]
-          ]
-        ]
-      }
-    }
-  ]
+  {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+}
 }
 ```
 
