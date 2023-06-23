@@ -48,6 +48,7 @@
 //    }
 //}
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,19 +74,18 @@ public class ChunkPlacer : MonoBehaviour
 
     void Update()
     {
-        //// 90% curChunck
-        //float endOfCurCh = CurrentChunks[CurrentChunks.Count - 1].endChunk.position.x;
-        //if (Player.position.x > endOfCurCh * (0.8f + temp))
-        //{            
-        //    if (temp >= 0.09f) temp = 0;
-        //    temp += 0.001f;
-        //    SpawnNewChunk();
-        //    Debug.Log("=======\nplayer :" + Player.position.x + $"\nchunk : {CurrentChunks[CurrentChunks.Count-1].endChunk.position.x}=======");
-        //    for (int i = 0; i < curObjsCount; i++) objsSpawner.ReplaceObject(CurrentChunks[^1]);
-        //}
+        // 90% curChunck
+        var endOfCurCh = Math.Round(CurrentChunks[CurrentChunks.Count - 1].endChunk.position.x * (0.8f + temp), 1);
+        if (Math.Round(Player.position.x,1)  > endOfCurCh)
+        {
+            if (temp >= 0.09f) temp = 0;
+            temp += 0.001f;
+            SpawnNewChunk();
+            for (int i = 0; i < curObjsCount; i++) objsSpawner.ReplaceObject(CurrentChunks[^1]);
+        }
 
         //if(Player.position.x > CurrentChunks[CurrentChunks.Count-1].transform)
-        
+
     }
 
     void SpawnNewChunk()

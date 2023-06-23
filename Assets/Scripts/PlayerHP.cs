@@ -40,7 +40,7 @@ public class PlayerHP : MonoBehaviour
         isAlive=true;
         food = GetComponent<PlayerMove>();
         spawn = GameObject.FindGameObjectWithTag("Respawn").transform;
-        dataBase = GameObject.Find("DataBaseWork").GetComponent<DBConnection>();
+        //dataBase = GameObject.Find("DataBaseWork").GetComponent<DBConnection>();
     }
 
     private void FixedUpdate()
