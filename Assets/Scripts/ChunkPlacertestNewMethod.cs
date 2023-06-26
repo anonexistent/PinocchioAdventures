@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChunkPlacertestNewMethod : MonoBehaviour
 {
     public Transform Player;
     public Chunk DefaultChunk;
+    public Chunk[] PrefsChs;
+    public List<Chunk> CursChs = new();
 
     void Start()
     {
-
+        CursChs.Add(DefaultChunk);
     }
 
     void Update()
@@ -21,25 +24,28 @@ public class ChunkPlacertestNewMethod : MonoBehaviour
     public void CheckPosition()
     {
         var pP = Math.Round(Player.position.x, 1);
-        var cP = Math.Round(DefaultChunk.endChunk.transform.position.x * 0.8f, 1) ;
-        Debug.Log(pP + "—" + cP);
+        var cP = Math.Round(CursChs[CursChs.Count-1].endChunk.transform.position.x * 0.9f, 1) ;
+        //Debug.Log("player : " + pP + "chunk end : " + cP);
         if (pP == cP)
         {
             SpawnPlease();
             Debug.Log("new chunk");
+
         }
     }
 
     private void SpawnPlease()
     {
-        //var newC = Instantiate(PrefChunks[UnityEngine.Random.Range(0, PrefChunks.Length)], chunkParent.transform);
+        var a = Instantiate(PrefsChs[UnityEngine.Random.Range(0, PrefsChs.Length)], GameObject.Find("plane").transform);
         //newC.transform.position = CurrentChunks[CurrentChunks.Count - 1].endChunk.position - newC.startChunk.localPosition;
-        //CurrentChunks.Add(newC);
+        a.transform.position = CursChs[CursChs.Count - 1].endChunk.position - a.startChunk.localPosition;
+        CursChs.Add(a);
+        Debug.Log("new chunk position" + a.transform.position);
 
-        //if (CurrentChunks.Count > 10)
-        //{
-        //    Destroy(CurrentChunks[0].gameObject);
-        //    CurrentChunks.RemoveAt(0);
-        //}
+        if (CursChs.Count > 5)
+        {
+            Destroy(CursChs[0].gameObject);
+            CursChs.Remove(CursChs[0]);
+        }
     }
 }

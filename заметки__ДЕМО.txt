@@ -204,7 +204,7 @@ use test; select name as score, userDate as date from users order by date desc l
 ==================
 
 —	новый тайлсет;
-есть идея динамической смены фона ( плованоеalpha от 0 до 1);
+есть идея динамической смены фона ( плавное alpha от 0 до 1);
 ???	фикс джсонМейкера;
 ???	решение проблемы MissingReferenceException: The object of type 
 	'CircleCollider2D' has been destroyed but you are still trying to access it.
@@ -233,4 +233,6 @@ https://itch.io/game-assets/free/tag-tilemap
 то и забег будет получаться длинее!;
 ПОЧЕМУ В ОДНОЙ ТОЧКЕ У РАЗНЫХ ОБЬЕКТОВ РАЗНЫЕ КООРДИНАТЫ????????;
 
+(24062023)
+переписали скрипт спавнера чанков;
 
