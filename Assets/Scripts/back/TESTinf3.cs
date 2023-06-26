@@ -125,15 +125,21 @@ public class TESTinf3 : MonoBehaviour
     {
         distance = cam.position - camStartPos
             ;
-        
-        
+
+
         //      –¿¡Œ“¿ Õ¿ƒ “≈Ã ◊“Œ¡€ :::::::  ¿–“»Õ ¿ —Ã≈Ÿ¿≈“—ﬂ ¬  ¿Ã≈–≈!!!!!!!!
-        
-        transform.position = new Vector3(cam.position.x
-            -0.85f
+
+        gameObject.LeanMove(new Vector3(cam.position.x
+            - 0.85f
             , cam.transform.position.y
-            +0.26f
-            , 0);
+            + 0.26f
+            , 0), 0.0009f);
+
+        //transform.position = new Vector3(cam.position.x
+        //    -0.85f
+        //    , cam.transform.position.y
+        //    +0.26f
+        //    , 0);
 
 
         for (int i = 0; i < backgrounds.Length; i++)
