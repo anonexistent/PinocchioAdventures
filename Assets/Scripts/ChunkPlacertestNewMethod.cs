@@ -40,9 +40,9 @@ public class ChunkPlacertestNewMethod : MonoBehaviour
         //newC.transform.position = CurrentChunks[CurrentChunks.Count - 1].endChunk.position - newC.startChunk.localPosition;
         a.transform.position = CursChs[CursChs.Count - 1].endChunk.position - a.startChunk.localPosition;
         CursChs.Add(a);
-        Debug.Log("new chunk position" + a.transform.position);
+        Debug.Log("new chunk position" + a.transform.position + " end of new chunk (90%) / player position" +a.endChunk.position.x * 0.9f + "\\" + Player.position.x);
 
-        if (CursChs.Count > 5)
+        if (CursChs.Count > 20)
         {
             Destroy(CursChs[0].gameObject);
             CursChs.Remove(CursChs[0]);

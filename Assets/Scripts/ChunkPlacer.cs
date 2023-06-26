@@ -94,7 +94,7 @@ public class ChunkPlacer : MonoBehaviour
         newC.transform.position = CurrentChunks[CurrentChunks.Count - 1].endChunk.position - newC.startChunk.localPosition;
         CurrentChunks.Add(newC);
 
-        if (CurrentChunks.Count > 10)
+        if (CurrentChunks.Count > 15)
         {
             Destroy(CurrentChunks[0].gameObject);
             CurrentChunks.RemoveAt(0);
