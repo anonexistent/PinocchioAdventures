@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8244798368206790849}
   - component: {fileID: 539405995977328993}
   - component: {fileID: 1328841617846168910}
+  - component: {fileID: 8465671598124531443}
   m_Layer: 0
   m_Name: empty-chunk
   m_TagString: Untagged
@@ -155,6 +156,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startChunk: {fileID: 8587918397092723326}
   endChunk: {fileID: 4644317063822572729}
+--- !u!60 &8465671598124531443
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136779375679334095}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -14.150495, y: -5.723536}
+      - {x: -14.479065, y: -5.7237644}
+      - {x: -14.776436, y: -5.882715}
+      - {x: -15.112934, y: -5.8831444}
+      - {x: -15.527126, y: -6.124461}
+      - {x: -15.77076, y: -6.401704}
+      - {x: -16.353775, y: -6.675594}
+      - {x: -18.167625, y: -6.6767364}
+      - {x: -18.425312, y: -6.5346856}
+      - {x: -18.60368, y: -6.35827}
+      - {x: -18.919785, y: -6.3580146}
+      - {x: -18.925045, y: -8.908603}
+      - {x: -14.149731, y: -8.908221}
+      - {x: -14.149059, y: -8.587698}
+      - {x: -18.76204, y: -8.585847}
+      - {x: -18.761742, y: -7.781696}
+      - {x: -14.469879, y: -7.7898564}
+      - {x: -14.470055, y: -7.950046}
+      - {x: -14.150915, y: -7.949403}
 --- !u!1 &4845842328339106456
 GameObject:
   m_ObjectHideFlags: 0
