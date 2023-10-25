@@ -10,12 +10,15 @@ using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerHP : MonoBehaviour
 {
+    HpContext hpex;
+
     public static byte HP = 3;
     bool isAlive;
     PlayerMove food;
@@ -41,6 +44,8 @@ public class PlayerHP : MonoBehaviour
         food = GetComponent<PlayerMove>();
         spawn = GameObject.FindGameObjectWithTag("Respawn").transform;
         //dataBase = GameObject.Find("DataBaseWork").GetComponent<DBConnection>();
+
+        hpex = new(hPpanels);
     }
 
     private void FixedUpdate()
@@ -55,7 +60,8 @@ public class PlayerHP : MonoBehaviour
     {
         if(collision.gameObject.tag == "enemy")
         {
-            HpMinus();                         
+            HpMinus();
+            
 
             if(Input.GetKeyDown(KeyCode.Escape))
             {
@@ -75,14 +81,59 @@ public class PlayerHP : MonoBehaviour
     
     void HpMinus()
     {
-        HP--;            
-        if (HP==0)
+        HP--;
+        if (HP == 0)
         {
             isAlive = false;
-            
+
             GameOver();
         }
-        hPpanels.transform.GetChild(HP+1).gameObject.SetActive(false);
+        hPpanels.transform.GetChild(HP + 1).gameObject.SetActive(false);
+
+        //hpex.Minus();
+    }
+    public class HpContext
+    {
+        public State state;
+        public GameObject hpPnls;
+        public HpContext(GameObject panels)
+        {
+            state = new State3();
+            hpPnls = panels;
+        }
+        public void Minus()
+        {
+            this.state.Handle(this);
+        }
+    }
+    public abstract class State
+    {
+        public abstract void Handle(HpContext x);
+    }
+    class State3 : State
+    {
+        public override void Handle(HpContext x)
+        {
+            PlayerHP.HP--;
+            x.hpPnls.transform.GetChild(HP + 1).gameObject.SetActive(false);
+            x.state = new State2();
+        }
+    }
+    class State2 : State
+    {
+        public override void Handle(HpContext x)
+        {
+            PlayerHP.HP--; 
+            x.hpPnls.transform.GetChild(HP + 1).gameObject.SetActive(false);
+            x.state = new State1();
+        }
+    }
+    class State1 : State
+    {
+        public override void Handle(HpContext x)
+        {            
+            new PlayerHP().GameOver();
+        }
     }
 
     void TestFormsPosts()
